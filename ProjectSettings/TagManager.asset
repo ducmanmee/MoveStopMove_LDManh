@@ -4,17 +4,19 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Missile
   - Enemy
+  - attackrange
+  - weapon1
+  - weapon
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - attackRangePlayer
   - Water
   - UI
-  - 
-  - 
+  - attackRangeEnemy
+  - weapon
   - 
   - 
   - 
