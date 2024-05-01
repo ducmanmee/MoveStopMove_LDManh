@@ -9,10 +9,7 @@ public class AttackState : IState<Enemy>
     float timer;
     public void OnEnter(Enemy t)
     {
-        if(t.nearestCharacter != null)
-        {
-            t.Attack();
-        }    
+        t.Attack();  
     }
 
     public void OnExecute(Enemy t)

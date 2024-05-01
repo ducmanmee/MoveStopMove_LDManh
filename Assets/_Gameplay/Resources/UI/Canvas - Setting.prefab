@@ -28,7 +28,6 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1728789760619373197}
   m_RootOrder: 1
@@ -111,7 +110,6 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1728789760391858828}
   m_Father: {fileID: 1728789760619373197}
@@ -204,7 +202,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3536933796273319475}
+      - m_Target: {fileID: 7153445915733251299}
         m_TargetAssemblyTypeName: CanvasSetting, Assembly-CSharp
         m_MethodName: MainMenuButton
         m_Mode: 1
@@ -244,7 +242,6 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1728789760118215669}
   m_RootOrder: 0
@@ -324,7 +321,6 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1728789760619373197}
   m_RootOrder: 0
@@ -400,7 +396,6 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1728789760457042733}
   - {fileID: 1728789759908343215}
@@ -481,7 +476,6 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1728789761291953722}
   m_RootOrder: 0
@@ -564,7 +558,6 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1728789760984810166}
   m_Father: {fileID: 1728789760619373197}
@@ -657,9 +650,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3536933796273319475}
+      - m_Target: {fileID: 1728789761365035393}
         m_TargetAssemblyTypeName: UICanvas, Assembly-CSharp
-        m_MethodName: Close
+        m_MethodName: 
         m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -681,7 +674,7 @@ GameObject:
   - component: {fileID: 1728789761365035405}
   - component: {fileID: 1728789761365035404}
   - component: {fileID: 1728789761365035407}
-  - component: {fileID: 3536933796273319475}
+  - component: {fileID: 7153445915733251299}
   m_Layer: 5
   m_Name: Canvas - Setting
   m_TagString: Untagged
@@ -699,7 +692,6 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1728789760619373197}
   m_Father: {fileID: 0}
@@ -771,7 +763,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3536933796273319475
+--- !u!114 &7153445915733251299
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -780,7 +772,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1728789761365035393}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d48ba16be7298849a578090b0b8295a, type: 3}
+  m_Script: {fileID: 11500000, guid: 17068d805d84d2a4ba4020265538c09d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isDestroyOnClose: 0
@@ -817,7 +809,6 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1814041123590209319}
   m_Father: {fileID: 1728789760619373197}
@@ -910,7 +901,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3536933796273319475}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UICanvas, Assembly-CSharp
         m_MethodName: Close
         m_Mode: 4
@@ -950,7 +941,6 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1928430782378200201}
   m_RootOrder: 0

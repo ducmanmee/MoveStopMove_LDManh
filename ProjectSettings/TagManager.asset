@@ -5,9 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
-  - attackrange
   - weapon1
   - weapon
+  - attackRangePlayer
+  - attackRangeEnemy
+  - attackRange
+  - attackrange
   layers:
   - Default
   - TransparentFX

@@ -25,11 +25,13 @@ public class Player : Character
     private void Awake()
     {
         MakeInstance();
+        OnInit();
         
     }
 
     private void Update()
-    {
+    {      
+        //Debug.Log(currentState);
         Moving();
         if (currentState != null)
         {
@@ -40,8 +42,19 @@ public class Player : Character
 
     public override void OnInit()
     {
-        base.OnInit();
+        ChangeState(new PIdleState());
     }
+
+    public override void OnDespawn()
+    {
+        StartCoroutine(OnDead());
+    }
+
+    public IEnumerator OnDead()
+    {
+        yield return new WaitForSeconds(Constain.TIMER_DEAD+ 1f);
+        Time.timeScale = 0;
+    }    
 
     public void ChangeState(IState<Player> newState)
     {
@@ -60,6 +73,11 @@ public class Player : Character
 
     public override void Moving()
     {
+        if (isDead)
+        {
+            ChangeState(new PDeadState());
+            return;
+        }
         movementDirection = new Vector3(joystick.Horizontal, 0, joystick.Vertical).normalized;
         if (joystick.Horizontal != 0 || joystick.Vertical != 0)
         {
@@ -82,7 +100,7 @@ public class Player : Character
     public override void Attack()
     {
         base.Attack();
-    }  
+    }
 
     public Vector3 GetDirectionToAim() => directionToCharacter;
 }

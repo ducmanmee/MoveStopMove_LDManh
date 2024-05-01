@@ -15,6 +15,7 @@ public class Character : MonoBehaviour
     private float distanceToCharacter;
     private float closestDistance = float.MaxValue;
     public Character nearestCharacter;
+    public bool isDead;
 
     //param move
     public Vector3 directionToCharacter;
@@ -27,13 +28,13 @@ public class Character : MonoBehaviour
 
     public virtual void OnInit()
     {
-        ChangeAnim(Constain.ANIM_IDLE);
+
     }
 
     public virtual void OnDespawn()
     {
 
-    }
+    }  
 
     public virtual void Moving()
     {
@@ -66,11 +67,28 @@ public class Character : MonoBehaviour
 
     public virtual void NearestEnemy()
     {
-        if (characterInRange.Count > 0)
+        if(characterInRange.Count  < 1)
+        {
+            nearestCharacter = null;
+            return;
+        } 
+            
+
+        CheckCharacterDeadInRange();
+        if (characterInRange.Count == 1)
+        {
+            nearestCharacter = characterInRange[0];
+            if(this is Player)
+            {
+                nearestCharacter.SetAim(true);
+            }    
+        }    
+        else if (characterInRange.Count > 1)
         {
             closestDistance = float.MaxValue;
-            foreach (Character character in characterInRange)
+            for (int i = 0; i < characterInRange.Count; i++)
             {
+                Character character = characterInRange[i];
                 distanceToCharacter = Vector3.Distance(this.transform.position, character.transform.position);
                 if (distanceToCharacter < closestDistance)
                 {
@@ -78,19 +96,24 @@ public class Character : MonoBehaviour
                     nearestCharacter = character;
                 }
             }
+
             if (currentCharacter != nearestCharacter)
             {
                 currentCharacter?.SetAim(false);
                 currentCharacter = nearestCharacter;
-                nearestCharacter.SetAim(true);
+                if (this is Player)
+                {
+                    nearestCharacter.SetAim(true);
+                }
             }
         }
         else
         {
             nearestCharacter = null;
-            currentCharacter = null;    
+            currentCharacter = null;
         }
     }
+
 
     public void GetDirectionToCharacter(Character C)
     {
@@ -100,15 +123,27 @@ public class Character : MonoBehaviour
         transform.rotation = targetRotation;
     }
 
-    public void AddCharacterInRange(Character character)
+    public void AddCharacterInRange(Character C)
     {
-        characterInRange.Add(character);
+        characterInRange.Add(C);
     }
 
-    public void RemoveCharacterInRange(Character character)
+    public void RemoveCharacterInRange(Character C)
     {
-        characterInRange.Remove(character);
+        characterInRange.Remove(C);
     }
+
+    private void CheckCharacterDeadInRange()
+    {
+        for (int i = characterInRange.Count - 1; i >= 0; i--)
+        {
+            Character character = characterInRange[i];
+            if (character.isDead)
+            {
+                RemoveCharacterInRange(character);
+            }
+        }
+    }    
 
     public virtual void SetAim(bool active)
     {

@@ -6,15 +6,15 @@ public class UIManager : Singleton<UIManager>
 {
     Dictionary<System.Type, UICanvas> canvasActives = new Dictionary<System.Type, UICanvas>();
     Dictionary<System.Type, UICanvas> canvasPrefabs = new Dictionary<System.Type, UICanvas>();
+    [SerializeField] List<UICanvas> canvasList;
 
     [SerializeField] Transform parent;
 
     private void Awake() {
         //Load prefab tu resource
-        UICanvas[] prefabs = Resources.LoadAll<UICanvas>("UI/");
-        for(int i = 0; i < prefabs.Length; i++)
+        for(int i = 0; i < canvasList.Count; i++)
         {
-            canvasPrefabs.Add(prefabs[i].GetType(), prefabs[i]);
+            canvasPrefabs.Add(canvasList[i].GetType(), canvasList[i]);
         }
     }
 
@@ -61,16 +61,34 @@ public class UIManager : Singleton<UIManager>
     //Lay active canvas
     public T GetUI<T>() where T : UICanvas
     {
-        if(!IsLoaded<T>())
+        if (!IsLoaded<T>())
         {
-            T prefab = GetUIPrefab<T>();
-            T canvas = Instantiate(prefab, parent);
-            canvasActives[typeof(T)] = canvas;
-        }    
+            if (canvasPrefabs.ContainsKey(typeof(T)))
+            {
+                T prefab = canvasPrefabs[typeof(T)] as T;
+                if (prefab != null)
+                {
+                    T canvas = Instantiate(prefab, parent);
+                    canvasActives[typeof(T)] = canvas;
+                    return canvas;
+                }
+                else
+                {
+                    Debug.LogError($"Prefab for {typeof(T)} is null.");
+                    return null;
+                }
+            }
+            else
+            {
+                Debug.LogError($"Prefab for {typeof(T)} is not loaded.");
+                return null;
+            }
+        }
 
         return canvasActives[typeof(T)] as T;
-    }   
-    
+    }
+
+
     //Get prefab
     private T GetUIPrefab<T>() where T : UICanvas
     {

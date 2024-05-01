@@ -8,6 +8,7 @@ public class WeaponController : MonoBehaviour
     public float speedRotate = 500f;
     public Transform mesh;
     Quaternion target;
+    private float distanceTraveled = 0f;
 
     void Start()
     {
@@ -16,14 +17,16 @@ public class WeaponController : MonoBehaviour
 
     public void OnDespawn()
     {
+        distanceTraveled = 0f;
         Pooling.ins.EnQueueObj("0", this.gameObject);
     }
 
     private void Update()
     {
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
-        mesh.Rotate(Vector3.forward, speedRotate * Time.deltaTime);
-        if(Vector3.Distance(transform.position, Player.Instance.transform.position) > 5.8f)
+        distanceTraveled += speed * Time.deltaTime;
+        //mesh.Rotate(Vector3.forward, speedRotate * Time.deltaTime);
+        if (distanceTraveled > 6f)
         {
             OnDespawn();
         }
@@ -33,7 +36,9 @@ public class WeaponController : MonoBehaviour
     {
         if (other.CompareTag(Constain.TAG_ENEMY) || other.CompareTag(Constain.TAG_PLAYER))
         {
-            OnDespawn();
+            Character C = other.GetComponent<Character>();
+            C.isDead = true;
+            OnDespawn();   
         }
     }
 }

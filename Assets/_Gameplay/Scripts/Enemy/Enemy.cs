@@ -44,6 +44,17 @@ public class Enemy : Character
         ChangeState(new IdleState());
     }
 
+    public override void OnDespawn()
+    {
+        StartCoroutine(OnDead());
+    }
+
+    public IEnumerator OnDead()
+    {
+        yield return new WaitForSeconds(Constain.TIMER_DEAD);
+        Pooling.ins.EnQueueObj(Constain.TAG_ENEMY, this.gameObject);
+    }
+
     public override void Moving()
     {
         ChangeAnim(Constain.ANIM_RUN);
@@ -52,6 +63,11 @@ public class Enemy : Character
         {
             ChangeState(new IdleState());
         }    
+    }
+
+    public override void Attack()
+    {
+        base.Attack();
     }
 
     public override void StopMoving()
@@ -69,15 +85,9 @@ public class Enemy : Character
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(Constain.TAG_ATTACKRANGE))
-        {
-            Player.Instance.AddCharacterInRange(this);
-        }
-
         if (other.CompareTag(Constain.TAG_WEAPON))
         {
-            ChangeAnim(Constain.ANIM_DEAD);
-            OnDespawn();
+            ChangeState(new DeadState());
         }
     }
 
@@ -86,7 +96,6 @@ public class Enemy : Character
         if (other.CompareTag(Constain.TAG_ATTACKRANGE))
         {
             SetAim(false);
-            Player.Instance.RemoveCharacterInRange(this);
         }
     }
 

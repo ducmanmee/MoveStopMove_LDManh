@@ -14,7 +14,7 @@ public class IdleState : IState<Enemy>
     {
         timer += Time.deltaTime;
         
-        if(timer > 2f)
+        if(timer > 1f)
         {
             t.NearestEnemy();
             if (t.nearestCharacter != null)

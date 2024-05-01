@@ -432,8 +432,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9135080993134123282}
-        m_TargetAssemblyTypeName: CanvasGamePlay, Assembly-CSharp
+      - m_Target: {fileID: 8562449690493808998}
+        m_TargetAssemblyTypeName: CanvasGameplay, Assembly-CSharp
         m_MethodName: SettingsButton
         m_Mode: 1
         m_Arguments:
@@ -456,7 +456,7 @@ GameObject:
   - component: {fileID: 9135080993134123281}
   - component: {fileID: 9135080993134123280}
   - component: {fileID: 9135080993134123287}
-  - component: {fileID: 9135080993134123282}
+  - component: {fileID: 8562449690493808998}
   m_Layer: 5
   m_Name: Canvas - GamePlay
   m_TagString: Untagged
@@ -547,7 +547,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &9135080993134123282
+--- !u!114 &8562449690493808998
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -556,7 +556,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9135080993134123285}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9f8c01f4296bd34297a975f51febdda, type: 3}
+  m_Script: {fileID: 11500000, guid: 23e9794cb8981ef46af94cce7a4eca7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isDestroyOnClose: 0
