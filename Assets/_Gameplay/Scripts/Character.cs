@@ -10,12 +10,14 @@ public class Character : MonoBehaviour
     public SkinnedMeshRenderer rendererCharacter;
     [SerializeField] private Rigidbody characterBody;
     public List<Character> characterInRange = new List<Character>();
+    public List<GameObject> weaponCharacter;
     [SerializeField] private Transform attackPoint;
     private Character currentCharacter;
     private float distanceToCharacter;
     private float closestDistance = float.MaxValue;
     public Character nearestCharacter;
     public bool isDead;
+    public Transform weaponPoint;
 
     //param move
     public Vector3 directionToCharacter;
@@ -23,12 +25,13 @@ public class Character : MonoBehaviour
 
     void Start()
     {
-
+        
     }
 
     public virtual void OnInit()
     {
-
+        characterInRange.Clear();
+        SetupWeapon(1);
     }
 
     public virtual void OnDespawn()
@@ -50,10 +53,15 @@ public class Character : MonoBehaviour
     {
         GetDirectionToCharacter(nearestCharacter);
         ChangeAnim(Constain.ANIM_ATTACK);
-        GameObject W = Pooling.ins.SpawnFromPool("0");
-        W.transform.position = attackPoint.position;  
-        W.transform.rotation = transform.rotation;
+        StartCoroutine(ThrowBullet());
+        
     }  
+
+    IEnumerator ThrowBullet()
+    {
+        yield return new WaitForSeconds(.25f);
+        SetupBullet(1);
+    }    
 
     public void ChangeAnim(string animName)
     {
@@ -64,6 +72,22 @@ public class Character : MonoBehaviour
             anim.SetTrigger(currentAnim);
         }
     }
+
+    public virtual void SetupWeapon(int index)
+    {
+        GameObject W = Instantiate(weaponCharacter[index]);
+        W.transform.parent = weaponPoint.transform;
+        W.transform.localPosition = Vector3.zero;
+        W.transform.localRotation = Quaternion.identity;
+    }
+    
+    public virtual void SetupBullet(int index)
+    {
+        WeaponController B = Pooling.ins.SpawnFromPool(index.ToString());
+        B.owner = this.gameObject;
+        B.gameObject.transform.position = attackPoint.position;
+        B.gameObject.transform.rotation = attackPoint.rotation;
+    }    
 
     public virtual void NearestEnemy()
     {

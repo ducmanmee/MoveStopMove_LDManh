@@ -9,6 +9,7 @@ public class WeaponController : MonoBehaviour
     public Transform mesh;
     Quaternion target;
     private float distanceTraveled = 0f;
+    public GameObject owner;
 
     void Start()
     {
@@ -18,7 +19,7 @@ public class WeaponController : MonoBehaviour
     public void OnDespawn()
     {
         distanceTraveled = 0f;
-        Pooling.ins.EnQueueObj("0", this.gameObject);
+        UnBullet(1);
     }
 
     private void Update()
@@ -32,13 +33,22 @@ public class WeaponController : MonoBehaviour
         }
     }
 
+    private void UnBullet(int index)
+    {
+        Pooling.ins.EnQueueObj(index.ToString(), this);
+
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(Constain.TAG_ENEMY) || other.CompareTag(Constain.TAG_PLAYER))
         {
-            Character C = other.GetComponent<Character>();
-            C.isDead = true;
-            OnDespawn();   
+            if(other.gameObject != owner.gameObject)
+            {
+                Character C = other.GetComponent<Character>();
+                C.isDead = true;
+                OnDespawn();   
+            }    
         }
     }
 }

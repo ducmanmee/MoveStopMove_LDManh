@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
+    [SerializeField] GameObject mapPrefab;
 
     private void MakeInstance()
     {
@@ -19,6 +20,10 @@ public class LevelManager : MonoBehaviour
         MakeInstance();
     }
     
+    public void OnInit()
+    {
+        GameObject map = Instantiate(mapPrefab, Vector3.zero, Quaternion.identity);
+    }    
 
     public void NextLevel()
     {

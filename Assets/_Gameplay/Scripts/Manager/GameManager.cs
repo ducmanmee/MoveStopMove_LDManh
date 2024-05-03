@@ -10,6 +10,10 @@ public class GameManager : MonoBehaviour
     public float minDistance;
     public float maxDistance;
 
+    public IState<GameManager> currentState;
+    public List<Enemy> activeEnemys = new List<Enemy>();
+
+
     private void MakeInstance()
     {
         if (instance == null)
@@ -32,8 +36,24 @@ public class GameManager : MonoBehaviour
 
     public void OnInit()
     {
+        ChangeState(new PlayState());
         SpawnEnemies();
-    }    
+    }
+
+    public void ChangeState(IState<GameManager> newState)
+    {
+        if (currentState != null)
+        {
+            currentState.OnExit(this);
+        }
+
+        currentState = newState;
+
+        if (currentState != null)
+        {
+            currentState.OnEnter(this);
+        }
+    }
 
     void SpawnEnemies()
     {
@@ -61,12 +81,24 @@ public class GameManager : MonoBehaviour
 
             if (isValidPosition)
             {
-                GameObject enemy = Pooling.ins.SpawnFromPool(Constain.TAG_ENEMY);
-                enemy.transform.position = randomPosition;
+                Enemy enemy = PoolingEnemy.ins.SpawnFromPool(Constain.TAG_ENEMY);
+                enemy.OnInit();
+                activeEnemys.Add(enemy);
+                enemy.gameObject.transform.position = randomPosition;
                 enemyPositions.Add(randomPosition);
                 spawnedEnemies++;
             }
         }
+    }
+
+    public void ClearEnemyActive()
+    {
+        foreach (Enemy enemy in activeEnemys)
+        {
+            if (!enemy.gameObject.activeSelf) continue;
+            PoolingEnemy.ins.EnQueueObj(Constain.TAG_ENEMY, enemy);
+        }
+        activeEnemys.Clear();
     }
 
     Vector3 GetRandomPosition()

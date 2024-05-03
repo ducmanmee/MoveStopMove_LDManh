@@ -13,7 +13,7 @@ public class Enemy : Character
 
     private void Start()
     {
-        OnInit();
+        
     }
 
     void Update()
@@ -41,6 +41,7 @@ public class Enemy : Character
 
     public override void OnInit()
     {
+        base.OnInit();
         ChangeState(new IdleState());
     }
 
@@ -51,8 +52,14 @@ public class Enemy : Character
 
     public IEnumerator OnDead()
     {
+
         yield return new WaitForSeconds(Constain.TIMER_DEAD);
-        Pooling.ins.EnQueueObj(Constain.TAG_ENEMY, this.gameObject);
+        PoolingEnemy.ins.EnQueueObj(Constain.TAG_ENEMY, this);
+    }
+
+    public void EnQueueEnemy()
+    {
+
     }
 
     public override void Moving()

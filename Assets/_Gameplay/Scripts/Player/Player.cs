@@ -28,9 +28,9 @@ public class Player : Character
         OnInit();
         
     }
-
     private void Update()
-    {      
+    {
+        if (GameManager.instance.currentState is LoseState) return;
         //Debug.Log(currentState);
         Moving();
         if (currentState != null)
@@ -41,7 +41,9 @@ public class Player : Character
     }
 
     public override void OnInit()
-    {
+    {  
+        base.OnInit();
+        isDead = false;
         ChangeState(new PIdleState());
     }
 
@@ -53,7 +55,6 @@ public class Player : Character
     public IEnumerator OnDead()
     {
         yield return new WaitForSeconds(Constain.TIMER_DEAD+ 1f);
-        Time.timeScale = 0;
     }    
 
     public void ChangeState(IState<Player> newState)
@@ -75,6 +76,7 @@ public class Player : Character
     {
         if (isDead)
         {
+            GameManager.instance.ChangeState(new LoseState());
             ChangeState(new PDeadState());
             return;
         }

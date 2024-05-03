@@ -16,25 +16,25 @@ public class Pooling : MonoBehaviour
     public class Pool
     {
         public string tag;
-        public GameObject prefab;
+        public WeaponController prefab;
         public int size;
     }
 
     public List<Pool> pools;
-    public Dictionary<string, Queue<GameObject>> poolDictionary;
+    public Dictionary<string, Queue<WeaponController>> poolDictionary;
 
     void SetUp()
     {
-        poolDictionary = new Dictionary<string, Queue<GameObject>>();
+        poolDictionary = new Dictionary<string, Queue<WeaponController>>();
 
         foreach (Pool p in pools)
         {
-            Queue<GameObject> objectPool = new Queue<GameObject>();
+            Queue<WeaponController> objectPool = new Queue<WeaponController>();
 
             for (int i = 0; i < p.size; i++)
             {
-                GameObject obj = Instantiate(p.prefab, transform);
-                obj.SetActive(false);
+                WeaponController obj = Instantiate(p.prefab, transform);
+                obj.gameObject.SetActive(false);
                 objectPool.Enqueue(obj);
             }
 
@@ -42,10 +42,10 @@ public class Pooling : MonoBehaviour
         }
     }
 
-    GameObject preb;
-    public GameObject SpawnFromPool(string tag)
+    WeaponController preb;
+    public WeaponController SpawnFromPool(string tag)
     {
-        GameObject objToSpawn;
+        WeaponController objToSpawn;
         try
         {
             objToSpawn = poolDictionary[tag].Dequeue();
@@ -61,20 +61,20 @@ public class Pooling : MonoBehaviour
                 }
             }
 
-            GameObject obj = Instantiate(preb, transform);
-            obj.SetActive(false);
+            WeaponController obj = Instantiate(preb, transform);
+            obj.gameObject.SetActive(false);
             poolDictionary[tag].Enqueue(obj);
 
             objToSpawn = poolDictionary[tag].Dequeue();
         }
 
-        objToSpawn.SetActive(true);
+        objToSpawn.gameObject.SetActive(true);
         return objToSpawn;
     }
 
-    public void EnQueueObj(string tag, GameObject objToEnqueue)
+    public void EnQueueObj(string tag, WeaponController objToEnqueue)
     {
         poolDictionary[tag].Enqueue(objToEnqueue);
-        objToEnqueue.SetActive(false);
+        objToEnqueue.gameObject.SetActive(false);
     }
 }
