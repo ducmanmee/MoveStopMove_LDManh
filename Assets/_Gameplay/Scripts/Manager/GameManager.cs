@@ -59,8 +59,9 @@ public class GameManager : MonoBehaviour
     {
         List<Vector3> enemyPositions = new List<Vector3>();
         int spawnedEnemies = 0;
+        int maxAttempts = 1000;
 
-        while (spawnedEnemies < numberOfEnemies)
+        while (spawnedEnemies < numberOfEnemies && maxAttempts > 0)
         {
             Vector3 randomPosition = GetRandomPosition();
             bool isValidPosition = true;
@@ -88,8 +89,11 @@ public class GameManager : MonoBehaviour
                 enemyPositions.Add(randomPosition);
                 spawnedEnemies++;
             }
+
+            maxAttempts--; 
         }
     }
+
 
     public void ClearEnemyActive()
     {

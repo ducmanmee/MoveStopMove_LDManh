@@ -9,7 +9,6 @@ public class CanvasMainmenu : UICanvas
         Close(0);
         GameManager.instance.ChangeState(new PlayState());
         UIManager.Instance.OpenUI<CanvasGameplay>();
-        Debug.Log(Time.timeScale);
         Time.timeScale = 1;
         Player.Instance.OnInit();
         GameManager.instance.OnInit();

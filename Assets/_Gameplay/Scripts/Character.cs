@@ -31,6 +31,7 @@ public class Character : MonoBehaviour
     public virtual void OnInit()
     {
         characterInRange.Clear();
+        isDead = false;
         SetupWeapon(1);
     }
 

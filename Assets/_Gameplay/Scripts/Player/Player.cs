@@ -43,7 +43,7 @@ public class Player : Character
     public override void OnInit()
     {  
         base.OnInit();
-        isDead = false;
+        transform.position = Constain.START_POINT;
         ChangeState(new PIdleState());
     }
 

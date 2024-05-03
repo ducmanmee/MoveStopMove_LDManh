@@ -15,6 +15,7 @@ public class Constain
     public static string TAG_PLAYER = "Player";
     public static string TAG_ATTACKRANGE = "attackRange";
     public static string TAG_WEAPON = "weapon";
+    public static Vector3 START_POINT = Vector3.zero;
 
     public static string TAG_Arrow = "0";
     public static string TAG_Axe_0 = "1";
