@@ -83,10 +83,12 @@ public class Player : Character
         movementDirection = new Vector3(joystick.Horizontal, 0, joystick.Vertical).normalized;
         if (joystick.Horizontal != 0 || joystick.Vertical != 0)
         {
+            isMoving = true;
             ChangeState(new PMoveState());
         }
         else
         {
+            isMoving = false;
             if(currentState is PMoveState)
             {
                 ChangeState(new PIdleState());

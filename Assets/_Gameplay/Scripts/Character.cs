@@ -22,6 +22,7 @@ public class Character : MonoBehaviour
     //param move
     public Vector3 directionToCharacter;
     Quaternion targetRotation;
+    public bool isMoving;
 
     void Start()
     {
@@ -61,7 +62,10 @@ public class Character : MonoBehaviour
     IEnumerator ThrowBullet()
     {
         yield return new WaitForSeconds(.25f);
-        SetupBullet(1);
+        if (!isMoving)
+        {
+            SetupBullet(1);
+        }
     }    
 
     public void ChangeAnim(string animName)
