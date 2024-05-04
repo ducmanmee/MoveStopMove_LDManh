@@ -25,13 +25,11 @@ public class Player : Character
     private void Awake()
     {
         MakeInstance();
-        OnInit();
         
     }
     private void Update()
     {
-        if (GameManager.instance.currentState is LoseState) return;
-        //Debug.Log(currentState);
+        if (GameManager.instance.currentState is LoseState) return;      
         Moving();
         if (currentState != null)
         {

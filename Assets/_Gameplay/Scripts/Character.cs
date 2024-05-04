@@ -19,6 +19,9 @@ public class Character : MonoBehaviour
     public bool isDead;
     public Transform weaponPoint;
 
+    public WeaponController bullet;
+    public GameObject weapon;
+
     //param move
     public Vector3 directionToCharacter;
     Quaternion targetRotation;
@@ -53,6 +56,10 @@ public class Character : MonoBehaviour
 
     public virtual void Attack()
     {
+        if(!weapon.activeSelf)
+        {
+            weapon.SetActive(true);
+        }
         GetDirectionToCharacter(nearestCharacter);
         ChangeAnim(Constain.ANIM_ATTACK);
         StartCoroutine(ThrowBullet());
@@ -64,6 +71,7 @@ public class Character : MonoBehaviour
         yield return new WaitForSeconds(.25f);
         if (!isMoving)
         {
+            weapon.SetActive(false);
             SetupBullet(1);
         }
     }    
@@ -80,18 +88,18 @@ public class Character : MonoBehaviour
 
     public virtual void SetupWeapon(int index)
     {
-        GameObject W = Instantiate(weaponCharacter[index]);
-        W.transform.parent = weaponPoint.transform;
-        W.transform.localPosition = Vector3.zero;
-        W.transform.localRotation = Quaternion.identity;
+        weapon = Instantiate(weaponCharacter[index]);
+        weapon.transform.parent = weaponPoint.transform;
+        weapon.transform.localPosition = Vector3.zero;
+        weapon.transform.localRotation = Quaternion.identity;
     }
     
     public virtual void SetupBullet(int index)
     {
-        WeaponController B = Pooling.ins.SpawnFromPool(index.ToString());
-        B.owner = this.gameObject;
-        B.gameObject.transform.position = attackPoint.position;
-        B.gameObject.transform.rotation = attackPoint.rotation;
+        bullet = Pooling.ins.SpawnFromPool(index.ToString());
+        bullet.owner = this;
+        bullet.gameObject.transform.position = attackPoint.position;
+        bullet.gameObject.transform.rotation = attackPoint.rotation;
     }    
 
     public virtual void NearestEnemy()
@@ -179,6 +187,5 @@ public class Character : MonoBehaviour
         
     }
 
-    public Rigidbody GetRigibody() => characterBody;
-
+    public Rigidbody GetRigibody() => characterBody;   
 }

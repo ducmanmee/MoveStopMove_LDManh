@@ -9,7 +9,7 @@ public class WeaponController : MonoBehaviour
     public Transform mesh;
     Quaternion target;
     private float distanceTraveled = 0f;
-    public GameObject owner;
+    public Character owner;
 
     void Start()
     {
@@ -36,6 +36,7 @@ public class WeaponController : MonoBehaviour
     private void UnBullet(int index)
     {
         Pooling.ins.EnQueueObj(index.ToString(), this);
+        owner.weapon.SetActive(true);
 
     }
 

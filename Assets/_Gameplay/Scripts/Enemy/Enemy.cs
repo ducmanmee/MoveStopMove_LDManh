@@ -7,7 +7,6 @@ public class Enemy : Character
 {
     public NavMeshAgent agent;
     private IState<Enemy> currentState;
-    private bool isMoving;
     [SerializeField] private GameObject aim;
     private Vector3 target;
 
