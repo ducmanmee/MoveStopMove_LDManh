@@ -5,17 +5,27 @@ using UnityEngine.UI;
 
 public class CanvasGameplay : UICanvas
 {
+    public static CanvasGameplay ins;
     [SerializeField] Text coinText;
+
+    private void MakeInstance()
+    {
+        if(ins == null)
+        {
+            ins = this;
+        }    
+    }    
 
     public override void Setup()
     {
+        MakeInstance();
         base.Setup();
-        UpdateCoin(0);
     }
 
-    public void UpdateCoin(int coin)
+
+    public void UpdateCharacterAlive()
     {
-        coinText.text = coin.ToString();
+        coinText.text = GameManager.ins.GetCharacterAlive().ToString();
     }
     public void SettingsButton()
     {

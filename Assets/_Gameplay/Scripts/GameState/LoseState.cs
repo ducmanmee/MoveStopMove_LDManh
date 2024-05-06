@@ -7,8 +7,8 @@ public class LoseState : IState<GameManager>
     public void OnEnter(GameManager t)
     {
         UIManager.Instance.OpenUI<CanvasFail>();
-        Player.Instance.OnInit();
-        GameManager.instance.ClearEnemyActive();
+        Player.ins.OnInit();
+        GameManager.ins.ClearEnemyActive();
     }
 
     public void OnExecute(GameManager t)

@@ -51,7 +51,8 @@ public class Enemy : Character
 
     public IEnumerator OnDead()
     {
-
+        GameManager.ins.RemoveEnemy(this);
+        CanvasGameplay.ins.UpdateCharacterAlive();
         yield return new WaitForSeconds(Constain.TIMER_DEAD);
         PoolingEnemy.ins.EnQueueObj(Constain.TAG_ENEMY, this);
     }

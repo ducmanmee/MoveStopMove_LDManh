@@ -53,13 +53,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4719294471789977108}
-  m_LocalRotation: {x: -0, y: 0.6110824, z: 0.000000059604638, w: -0.7915671}
+  m_LocalRotation: {x: 0.43210235, y: 0.43210235, z: -0.559721, w: -0.559721}
   m_LocalPosition: {x: -0.065, y: -0, z: 0.091}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6066119262764444174}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 1004.664, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 1004.664, z: 90}
 --- !u!1 &5718958136128270700
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,12 +270,27 @@ MonoBehaviour:
   rendererCharacter: {fileID: 6129700103053752643}
   characterBody: {fileID: 2299463351242602201}
   characterInRange: []
-  weaponCharacter: []
+  weaponCharacter:
+  - {fileID: 2387608806840730722, guid: bd1a7df19faff104fb469bd27b9f70cb, type: 3}
+  - {fileID: 5724968656488920877, guid: 8cc67782900c28d4aad58169f05226a7, type: 3}
+  - {fileID: 2249569438413292972, guid: d83a91c5af80804409de8d25cecfba61, type: 3}
+  - {fileID: 4121210906262432846, guid: f00b9fa45157ca04b81dd2af35378b30, type: 3}
+  - {fileID: 7714961986415539767, guid: 0ec8f9c83fce5fe4ea6ba2208217c913, type: 3}
+  - {fileID: 3167469757548088181, guid: f129df8573d102e4386d67e981141d86, type: 3}
+  - {fileID: 6518965478221494451, guid: 73dbc586f182f0f4ba1ab599e481bf25, type: 3}
+  - {fileID: 2318136617118876826, guid: a740cc3b69b55c94a87750b5247f0d0d, type: 3}
+  - {fileID: 6752438244094921010, guid: 43d532add061a18429ec77b6cf8f9254, type: 3}
+  - {fileID: 8983611211820087192, guid: 4ec864180b7861c4c83d748a1894befe, type: 3}
+  - {fileID: 1580085847569029581, guid: eaf4d6dd7eac94f4b8cacf52b4015eb1, type: 3}
+  - {fileID: 1205294436114973661, guid: c38829afce8f2784c80b1b1d33f5008d, type: 3}
   attackPoint: {fileID: 1904516224674537333}
   nearestCharacter: {fileID: 0}
   isDead: 0
-  weaponPoint: {fileID: 0}
+  weaponPoint: {fileID: 6913562701861445793}
+  bullet: {fileID: 0}
+  weapon: {fileID: 0}
   directionToCharacter: {x: 0, y: 0, z: 0}
+  isMoving: 0
   joystick: {fileID: 0}
   moveSpeed: 10
   movementDirection: {x: 0, y: 0, z: 0}

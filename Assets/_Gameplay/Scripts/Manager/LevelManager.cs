@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    public static LevelManager instance;
+    public static LevelManager ins;
     [SerializeField] GameObject mapPrefab;
 
     private void MakeInstance()
     {
-        if (instance == null)
+        if (ins == null)
         {
-            instance = this;
+            ins = this;
         }    
     }
 

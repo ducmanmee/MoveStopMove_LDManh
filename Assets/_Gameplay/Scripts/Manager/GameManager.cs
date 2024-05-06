@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager ins;
     public int numberOfEnemies = 100;
     public float minDistance;
     public float maxDistance;
@@ -16,9 +17,9 @@ public class GameManager : MonoBehaviour
 
     private void MakeInstance()
     {
-        if (instance == null)
+        if (ins == null)
         {
-            instance = this;
+            ins = this;
         }    
     }
 
@@ -66,7 +67,7 @@ public class GameManager : MonoBehaviour
             Vector3 randomPosition = GetRandomPosition();
             bool isValidPosition = true;
 
-            if (Vector3.Distance(randomPosition, Player.Instance.transform.position) < minDistance)
+            if (Vector3.Distance(randomPosition, Player.ins.transform.position) < minDistance)
             {
                 isValidPosition = false;
             }
@@ -105,6 +106,14 @@ public class GameManager : MonoBehaviour
         activeEnemys.Clear();
     }
 
+
+    public void RemoveEnemy(Enemy enemy)
+    {
+        activeEnemys.Remove(enemy);
+    }
+
+    public int GetCharacterAlive() => activeEnemys.Count + 1;
+
     Vector3 GetRandomPosition()
     {
         NavMeshHit hit;
@@ -113,12 +122,22 @@ public class GameManager : MonoBehaviour
         Vector3 randomDirection = Random.insideUnitSphere.normalized;
         randomDirection.y = 0;
 
-        if (NavMesh.SamplePosition(Player.Instance.transform.position + randomDirection * distance, out hit, maxDistance, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(Player.ins.transform.position + randomDirection * distance, out hit, maxDistance, NavMesh.AllAreas))
         {
             randomPosition = hit.position;
         }
 
         return randomPosition;
     }
+
+    public void PlayGame()
+    {
+        GameManager.ins.ChangeState(new PlayState());
+        UIManager.Instance.OpenUI<CanvasGameplay>();
+        Time.timeScale = 1;
+        Player.ins.OnInit();
+        GameManager.ins.OnInit();
+        CanvasGameplay.ins.UpdateCharacterAlive();
+    }    
 
 }

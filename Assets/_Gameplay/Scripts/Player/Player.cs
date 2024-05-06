@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : Character
 {
-    public static Player Instance;
+    public static Player ins;
     [SerializeField] private FixedJoystick joystick;
     public float moveSpeed;
     private bool isEnemy;
@@ -16,9 +16,9 @@ public class Player : Character
 
     private void MakeInstance()
     {
-        if(Instance == null)
+        if(ins == null)
         {
-            Instance = this;
+            ins = this;
         }    
     }
 
@@ -29,7 +29,7 @@ public class Player : Character
     }
     private void Update()
     {
-        if (GameManager.instance.currentState is LoseState) return;      
+        if (GameManager.ins.currentState is LoseState) return;      
         Moving();
         if (currentState != null)
         {
@@ -74,7 +74,7 @@ public class Player : Character
     {
         if (isDead)
         {
-            GameManager.instance.ChangeState(new LoseState());
+            GameManager.ins.ChangeState(new LoseState());
             ChangeState(new PDeadState());
             return;
         }

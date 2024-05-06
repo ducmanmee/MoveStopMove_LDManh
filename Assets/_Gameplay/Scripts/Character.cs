@@ -27,11 +27,6 @@ public class Character : MonoBehaviour
     Quaternion targetRotation;
     public bool isMoving;
 
-    void Start()
-    {
-        
-    }
-
     public virtual void OnInit()
     {
         characterInRange.Clear();
@@ -56,7 +51,7 @@ public class Character : MonoBehaviour
 
     public virtual void Attack()
     {
-        if(!weapon.activeSelf)
+        if (!weapon.activeSelf)
         {
             weapon.SetActive(true);
         }
