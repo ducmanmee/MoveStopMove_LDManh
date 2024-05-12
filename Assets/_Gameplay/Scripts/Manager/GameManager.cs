@@ -10,8 +10,13 @@ public class GameManager : MonoBehaviour
     public int numberOfEnemies = 100;
     public float minDistance;
     public float maxDistance;
+    private Quaternion startPlayer;
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private Camera shopWeaponCamera;
+    [SerializeField] private Camera shopFashionCamera;
+    [SerializeField] private GameObject player;
 
-    public IState<GameManager> currentState;
+    private IState<GameManager> currentState;
     public List<Enemy> activeEnemys = new List<Enemy>();
 
 
@@ -20,19 +25,21 @@ public class GameManager : MonoBehaviour
         if (ins == null)
         {
             ins = this;
-        }    
+        }
     }
 
     private void Awake()
     {
         MakeInstance();
-        Time.timeScale = 0;
-        
     }
 
     void Start()
     {
-        UIManager.Instance.OpenUI<CanvasMainmenu>();
+        DataManager.ins.LoadData();
+        ChangeState(new MenuState());
+        UIManager.ins.OpenUI<CanvasMainmenu>();
+        startPlayer = Player.ins.PlayerRotation;
+        Player.ins.OnInit();
     }
 
     public void OnInit()
@@ -55,6 +62,7 @@ public class GameManager : MonoBehaviour
             currentState.OnEnter(this);
         }
     }
+
 
     void SpawnEnemies()
     {
@@ -91,7 +99,7 @@ public class GameManager : MonoBehaviour
                 spawnedEnemies++;
             }
 
-            maxAttempts--; 
+            maxAttempts--;
         }
     }
 
@@ -133,11 +141,40 @@ public class GameManager : MonoBehaviour
     public void PlayGame()
     {
         GameManager.ins.ChangeState(new PlayState());
-        UIManager.Instance.OpenUI<CanvasGameplay>();
-        Time.timeScale = 1;
         Player.ins.OnInit();
+        UIManager.ins.OpenUI<CanvasGameplay>();
+        Time.timeScale = 1;
         GameManager.ins.OnInit();
         CanvasGameplay.ins.UpdateCharacterAlive();
-    }    
+    }
+
+    public void RestartPlayer()
+    {
+        Player.ins.OnInit();
+        Player.ins.PlayerRotation = startPlayer;
+        Time.timeScale = 1;
+    }
+
+    public IEnumerator LoseGame()
+    {
+        yield return new WaitForSeconds(1.5f);
+        UIManager.ins.OpenUI<CanvasFail>();
+        GameManager.ins.ClearEnemyActive();
+    }
+
+    public IState<GameManager> GetGameState() => currentState;
+
+    public void HideShopWeaponCamera(bool hide)
+    {
+        player.SetActive(!hide);
+        mainCamera.enabled = !hide;
+        shopWeaponCamera.enabled = hide;
+    }
+
+    public void HideShopFashionCamera(bool hide)
+    {
+        mainCamera.enabled = !hide;
+        shopFashionCamera.enabled = hide;
+    }
 
 }

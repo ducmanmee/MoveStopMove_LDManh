@@ -7,8 +7,9 @@ using UnityEngine;
 public class Weapon : ScriptableObject
 {
     [Header ("Weapon Name")]
-    public int mapIndex;
+    public int weaponID;
     public string weaponName;
+    public int priceWeapon;
 
     [Header("Weapon Stats")]
     public int damage;

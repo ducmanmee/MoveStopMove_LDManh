@@ -1775,12 +1775,15 @@ MonoBehaviour:
   - {fileID: 8983611211820087192, guid: 4ec864180b7861c4c83d748a1894befe, type: 3}
   - {fileID: 1580085847569029581, guid: eaf4d6dd7eac94f4b8cacf52b4015eb1, type: 3}
   - {fileID: 1205294436114973661, guid: c38829afce8f2784c80b1b1d33f5008d, type: 3}
+  pantCharacter: []
   attackPoint: {fileID: 2088836890969716167}
   nearestCharacter: {fileID: 0}
   isDead: 0
+  delayAttack: 0
   weaponPoint: {fileID: 7538384357487527221}
   bullet: {fileID: 0}
   weapon: {fileID: 0}
+  pantMaterialCharacte: {fileID: 3198458665094715026}
   directionToCharacter: {x: 0, y: 0, z: 0}
   isMoving: 0
   agent: {fileID: 6108234066891930688}
@@ -1820,7 +1823,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetColor: {r: 1, g: 0, b: 0, a: 1}
-  needBoxIndicator: 0
+  needBoxIndicator: 1
   needArrowIndicator: 1
   needDistanceText: 1
   indicator: {fileID: 0}

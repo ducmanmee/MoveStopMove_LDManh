@@ -14,6 +14,8 @@ public class Player : Character
     public Vector3 movementDirection;
     public bool canAttack;
 
+    private int pantPlayerToUse;
+
     private void MakeInstance()
     {
         if(ins == null)
@@ -29,7 +31,7 @@ public class Player : Character
     }
     private void Update()
     {
-        if (GameManager.ins.currentState is LoseState) return;      
+        if (GameManager.ins.GetGameState() is LoseState) return;      
         Moving();
         if (currentState != null)
         {
@@ -42,6 +44,11 @@ public class Player : Character
     {  
         base.OnInit();
         transform.position = Constain.START_POINT;
+        /*WeaponToUse = DataManager.ins.playerData.idWeapon;
+        PantToUse = DataManager.ins.playerData.idPant;*/
+        SetHat(DataManager.ins.playerData.idHat);
+        SetPant(pantCharacter[PantToUse]);
+        SetupWeapon();
         ChangeState(new PIdleState());
     }
 
@@ -105,4 +112,10 @@ public class Player : Character
     }
 
     public Vector3 GetDirectionToAim() => directionToCharacter;
+    public Quaternion PlayerRotation
+    {
+        get { return transform.rotation; } 
+        set { transform.rotation = value; } 
+    }
+  
 }

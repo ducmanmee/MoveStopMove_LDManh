@@ -30,6 +30,6 @@ public class CanvasGameplay : UICanvas
     public void SettingsButton()
     {
         Time.timeScale = 0;
-        UIManager.Instance.OpenUI<CanvasSetting>().SetState(this);
+        UIManager.ins.OpenUI<CanvasSetting>().SetState(this);
     }
 }

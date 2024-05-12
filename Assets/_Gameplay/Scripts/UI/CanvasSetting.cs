@@ -26,8 +26,11 @@ public class CanvasSetting : UICanvas
 
     public void MainMenuButton()
     {
-        UIManager.Instance.CloseAllUI();
-        UIManager.Instance.OpenUI<CanvasMainmenu>();
+        UIManager.ins.CloseAllUI();
+        GameManager.ins.ClearEnemyActive();
+        GameManager.ins.RestartPlayer();
+        GameManager.ins.ChangeState(new MenuState());
+        UIManager.ins.OpenUI<CanvasMainmenu>();
     }
 
     public void ContinueButton()

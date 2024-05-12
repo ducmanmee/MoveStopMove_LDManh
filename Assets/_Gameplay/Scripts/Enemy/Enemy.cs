@@ -42,6 +42,8 @@ public class Enemy : Character
     {
         base.OnInit();
         ChangeState(new IdleState());
+        WeaponToUse = Random.Range(0, 11);
+        SetupWeapon();
     }
 
     public override void OnDespawn()

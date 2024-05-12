@@ -1,14 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class WeaponController : MonoBehaviour
 {
     public float speed = 1f;
-    public float speedRotate = 500f;
     public Transform mesh;
     Quaternion target;
-    private float distanceTraveled = 0f;
+    private float distanceToDes = 0f;
     public Character owner;
 
     void Start()
@@ -18,16 +16,15 @@ public class WeaponController : MonoBehaviour
 
     public void OnDespawn()
     {
-        distanceTraveled = 0f;
+        distanceToDes = 0f;
         UnBullet(1);
     }
 
     private void Update()
     {
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
-        distanceTraveled += speed * Time.deltaTime;
-        //mesh.Rotate(Vector3.forward, speedRotate * Time.deltaTime);
-        if (distanceTraveled > 6f)
+        distanceToDes += speed * Time.deltaTime;
+        if (distanceToDes > 6f)
         {
             OnDespawn();
         }

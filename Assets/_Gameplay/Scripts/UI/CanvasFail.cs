@@ -14,7 +14,8 @@ public class CanvasFail : UICanvas
     public void MainMenuButton()
     {
 
-        UIManager.Instance.CloseAllUI();
-        UIManager.Instance.OpenUI<CanvasMainmenu>();
+        UIManager.ins.CloseAllUI();
+        UIManager.ins.OpenUI<CanvasMainmenu>();
+        GameManager.ins.RestartPlayer();
     }
 }

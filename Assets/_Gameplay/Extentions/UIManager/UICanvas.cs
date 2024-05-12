@@ -8,7 +8,6 @@ public class UICanvas : MonoBehaviour
 
     private void Awake()
     {
-        //Xu ly tai tho
         RectTransform rect = GetComponent<RectTransform>();
         float ratio = (float)Screen.width / (float)Screen.height;
         if(ratio > 2.1f)
@@ -21,7 +20,8 @@ public class UICanvas : MonoBehaviour
 
             rect.offsetMin = leftButton;
             rect.offsetMax = rightButton;
-        }    
+        } 
+        
     }
 
     //goi truoc khi canvas duoc active

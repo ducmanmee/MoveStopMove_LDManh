@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -10,28 +11,41 @@ public class Character : MonoBehaviour
     public SkinnedMeshRenderer rendererCharacter;
     [SerializeField] private Rigidbody characterBody;
     public List<Character> characterInRange = new List<Character>();
+
     public List<GameObject> weaponCharacter;
+    public List<GameObject> hatCharacter;
+    public List<Material> pantCharacter;
+
     [SerializeField] private Transform attackPoint;
     private Character currentCharacter;
     private float distanceToCharacter;
     private float closestDistance = float.MaxValue;
     public Character nearestCharacter;
+
+    private int weaponCharacterToUse;
+    private int pantCharacterToUse;
+    private int hatCharacterToUse;
+
     public bool isDead;
+    public bool delayAttack;
     public Transform weaponPoint;
 
     public WeaponController bullet;
     public GameObject weapon;
+    public SkinnedMeshRenderer pantMaterialCharacte;
+
+
 
     //param move
     public Vector3 directionToCharacter;
     Quaternion targetRotation;
     public bool isMoving;
+    private float delayAttackTime = .25f;
 
     public virtual void OnInit()
     {
         characterInRange.Clear();
         isDead = false;
-        SetupWeapon(1);
     }
 
     public virtual void OnDespawn()
@@ -51,6 +65,8 @@ public class Character : MonoBehaviour
 
     public virtual void Attack()
     {
+        if (delayAttack || isDead) return;
+        delayAttack = true;
         if (!weapon.activeSelf)
         {
             weapon.SetActive(true);
@@ -67,8 +83,10 @@ public class Character : MonoBehaviour
         if (!isMoving)
         {
             weapon.SetActive(false);
-            SetupBullet(1);
+            SetupBullet();
         }
+        yield return new WaitForSeconds(delayAttackTime); 
+        delayAttack = false;
     }    
 
     public void ChangeAnim(string animName)
@@ -81,17 +99,21 @@ public class Character : MonoBehaviour
         }
     }
 
-    public virtual void SetupWeapon(int index)
-    {
-        weapon = Instantiate(weaponCharacter[index]);
+    public void SetupWeapon()
+    {      
+        if(weapon != null)
+        {
+            Destroy(weapon);
+        }    
+        weapon = Instantiate(weaponCharacter[weaponCharacterToUse]);
         weapon.transform.parent = weaponPoint.transform;
         weapon.transform.localPosition = Vector3.zero;
         weapon.transform.localRotation = Quaternion.identity;
     }
     
-    public virtual void SetupBullet(int index)
-    {
-        bullet = Pooling.ins.SpawnFromPool(index.ToString());
+    public void SetupBullet()
+    {  
+        bullet = Pooling.ins.SpawnFromPool(weaponCharacterToUse.ToString());
         bullet.owner = this;
         bullet.gameObject.transform.position = attackPoint.position;
         bullet.gameObject.transform.rotation = attackPoint.rotation;
@@ -173,6 +195,44 @@ public class Character : MonoBehaviour
             if (character.isDead)
             {
                 RemoveCharacterInRange(character);
+            }
+        }
+    }
+
+    public int WeaponToUse
+    {
+        get { return weaponCharacterToUse; }
+        set { weaponCharacterToUse = value; }
+    }
+
+    public int PantToUse
+    {
+        get { return pantCharacterToUse; }
+        set { pantCharacterToUse = value; }
+    }
+
+    public int HatToUse
+    {
+        get { return hatCharacterToUse; }
+        set { hatCharacterToUse = value; }
+    }
+
+    public void SetPant(Material materialPant)
+    {
+        pantMaterialCharacte.material = materialPant;
+    }
+
+    public void SetHat(int index)
+    {
+        for (int i = 0; i < hatCharacter.Count; i++)
+        {
+            if (i == index)
+            {
+                hatCharacter[i].SetActive(true);
+            }
+            else
+            {
+                hatCharacter[i].SetActive(false);
             }
         }
     }    
