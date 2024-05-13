@@ -46,23 +46,21 @@ public class Enemy : Character
         SetupWeapon();
     }
 
-    public override void OnDespawn()
+    public override void Dead()
     {
+        base.Dead();
         StartCoroutine(OnDead());
     }
 
     public IEnumerator OnDead()
     {
+        ChangeState(new DeadState());
         GameManager.ins.RemoveEnemy(this);
         CanvasGameplay.ins.UpdateCharacterAlive();
         yield return new WaitForSeconds(Constain.TIMER_DEAD);
         PoolingEnemy.ins.EnQueueObj(Constain.TAG_ENEMY, this);
     }
 
-    public void EnQueueEnemy()
-    {
-
-    }
 
     public override void Moving()
     {
@@ -92,13 +90,6 @@ public class Enemy : Character
         transform.LookAt(target);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag(Constain.TAG_WEAPON))
-        {
-            ChangeState(new DeadState());
-        }
-    }
 
     private void OnTriggerExit(Collider other)
     {

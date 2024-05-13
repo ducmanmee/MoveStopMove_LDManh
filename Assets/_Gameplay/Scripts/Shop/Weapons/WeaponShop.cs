@@ -39,6 +39,7 @@ public class WeaponShop : Singleton<WeaponShop>
 
     public void SetWeapon()
     {
+        Debug.Log("set weapon");
         DataManager.ins.playerData.idWeapon = currentIndex;
         Player.ins.WeaponToUse = DataManager.ins.playerData.idWeapon;
         Player.ins.SetupWeapon();
@@ -68,7 +69,7 @@ public class WeaponShop : Singleton<WeaponShop>
         }  
         else
         {
-            if(DataManager.ins.playerData.idWeapon != currentIndex)
+            if (Player.ins.WeaponToUse != currentIndex)
             {
                 SetWeapon();
                 weaponDisplay.SetStateDisplay(weaponToBuy, currentIndex);

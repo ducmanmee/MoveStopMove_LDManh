@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 3062967720749413539}
   - component: {fileID: 6540324040388050238}
   m_Layer: 0
-  m_Name: Pant
+  m_Name: ButtonShop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -245,7 +245,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6540324040388050238}
         m_TargetAssemblyTypeName: ShopBtn, Assembly-CSharp
-        m_MethodName: SetPaintBtn
+        m_MethodName: Click
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -269,6 +269,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idBtnShop: 0
   lockPant: {fileID: 3512571823780668503}
+  iconHat: {fileID: 7002582732493627479}
+  canvasSkin: {fileID: 0}
 --- !u!1 &7002582732493627477
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CanvasShopFashion : UICanvas
 {
     public static CanvasShopFashion ins;
     [SerializeField] private List<GameObject> shops;
+
     private int currentShop;
 
     private void MakeInstance()
@@ -44,7 +46,7 @@ public class CanvasShopFashion : UICanvas
                 shops[i].SetActive(false); 
             }
         }
-    }
+    }  
 
     public int GetCurrentShop() => currentShop;
 

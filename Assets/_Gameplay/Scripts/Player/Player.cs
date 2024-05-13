@@ -79,12 +79,10 @@ public class Player : Character
 
     public override void Moving()
     {
-        if (isDead)
+        if(isDead)
         {
-            GameManager.ins.ChangeState(new LoseState());
-            ChangeState(new PDeadState());
-            return;
-        }
+            Dead();
+        }    
         movementDirection = new Vector3(joystick.Horizontal, 0, joystick.Vertical).normalized;
         if (joystick.Horizontal != 0 || joystick.Vertical != 0)
         {
@@ -117,5 +115,14 @@ public class Player : Character
         get { return transform.rotation; } 
         set { transform.rotation = value; } 
     }
-  
+
+    public override void Dead()
+    {
+        base.Dead();
+        canAttack = false;
+        GameManager.ins.ChangeState(new LoseState());
+        ChangeState(new PDeadState());
+        return;
+    }
+
 }

@@ -1,13 +1,10 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HatDisplay : Singleton<HatDisplay>
 {
-    [SerializeField] private ScriptableObject[] scriptableObjectsHat;
-    [SerializeField] private Text priceHat;
-
     [SerializeField] private Text goldText;
     private int defaultIndex;
     public int currentIndex;
@@ -19,17 +16,9 @@ public class HatDisplay : Singleton<HatDisplay>
         DisplayHat(defaultIndex);
     }
 
-    public void DisplayHat(int index)
-    {
-        if (index > scriptableObjectsHat.Length - 1) return;
-        SetStateHat((Hat)scriptableObjectsHat[index], index);
-        SetHatInShop(index);
-    }
+    
 
-    public void SetHatInShop(int index)
-    {
-        Player.ins.SetHat(index);
-    }
+    
     public void SetStateHat(Hat hat, int index)
     {
         if (DataManager.ins.playerData.status_Hat[index])
@@ -81,3 +70,4 @@ public class HatDisplay : Singleton<HatDisplay>
         currentIndex = index;
     }
 }
+*/

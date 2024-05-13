@@ -31,7 +31,6 @@ public class CameraFollow : MonoBehaviour
         transform.position = camMenu;
     }
 
-
     void LateUpdate()
     {
         if (GameManager.ins.GetGameState() is MenuState)

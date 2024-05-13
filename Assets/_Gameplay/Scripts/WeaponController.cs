@@ -44,7 +44,8 @@ public class WeaponController : MonoBehaviour
             if(other.gameObject != owner.gameObject)
             {
                 Character C = other.GetComponent<Character>();
-                C.isDead = true;
+                C.IsDead = true;
+                C.Dead();
                 OnDespawn();   
             }    
         }

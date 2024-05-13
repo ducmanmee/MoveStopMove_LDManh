@@ -16,6 +16,7 @@ public class CanvasFail : UICanvas
 
         UIManager.ins.CloseAllUI();
         UIManager.ins.OpenUI<CanvasMainmenu>();
+        GameManager.ins.ChangeState(new MenuState());
         GameManager.ins.RestartPlayer();
     }
 }

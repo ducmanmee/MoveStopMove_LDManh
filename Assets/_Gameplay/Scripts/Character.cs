@@ -44,7 +44,6 @@ public class Character : MonoBehaviour
 
     public virtual void OnInit()
     {
-        characterInRange.Clear();
         isDead = false;
     }
 
@@ -187,6 +186,11 @@ public class Character : MonoBehaviour
         characterInRange.Remove(C);
     }
 
+    public virtual void Dead()
+    {
+        ClearCharacterInRange();
+    }    
+
     private void CheckCharacterDeadInRange()
     {
         for (int i = characterInRange.Count - 1; i >= 0; i--)
@@ -198,6 +202,11 @@ public class Character : MonoBehaviour
             }
         }
     }
+
+    public void ClearCharacterInRange()
+    {
+        characterInRange.Clear();
+    }    
 
     public int WeaponToUse
     {
@@ -215,6 +224,12 @@ public class Character : MonoBehaviour
     {
         get { return hatCharacterToUse; }
         set { hatCharacterToUse = value; }
+    }
+
+    public bool IsDead
+    {
+        get { return isDead; }
+        set { isDead = value; }
     }
 
     public void SetPant(Material materialPant)
@@ -235,7 +250,8 @@ public class Character : MonoBehaviour
                 hatCharacter[i].SetActive(false);
             }
         }
-    }    
+    }   
+    
 
     public virtual void SetAim(bool active)
     {
