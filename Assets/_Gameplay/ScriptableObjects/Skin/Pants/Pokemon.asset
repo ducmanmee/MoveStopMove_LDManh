@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pantID: 5
   pantName: Pokemon
-  pricePant: 1000
+  price: 1600
   damage: 0
   speed: 0
   pantMaterial: {fileID: 2100000, guid: 4fe79927fee00524cb50ca5ac98417bb, type: 2}

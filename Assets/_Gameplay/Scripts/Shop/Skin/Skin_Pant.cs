@@ -28,34 +28,37 @@ public class Skin_Pant : CanvasSkin
     public override void OnInit()
     {
         base.OnInit();
-        SelectingID = 0;
-        SetStatePant(SelectingID);
+        SelectingID = 1;
+        CheckSelectItem();
+        Player.ins.SetPant(SelectingID);
+        SetStatePant();
     }
 
     public override void Btn_Click()
     {
         base.Btn_Click();
-        Player.ins.SetPant(pants[SelectingID]);
-        SetStatePant(SelectingID);
+        Player.ins.SetPant(SelectingID);
+        SetStatePant();
     }
 
-    public void SetStatePant(int index)
+    public void SetStatePant()
     {
-        pant = (Pant)scriptableObjects[SelectingID];
-        if (DataManager.ins.playerData.status_Pant[index])
+        pant = (Pant)scriptableObjects[SelectingID - 1];
+        if (DataManager.ins.playerData.status_Pant[SelectingID])
         {
             if (Player.ins.PantToUse == SelectingID)
             {
-                priceText.text = "Equip";
+                SetStateBtn(2);
             }
             else
             {
-                priceText.text = "Select";
+                SetStateBtn(1);
             }
         }
         else
         {
-            priceText.text = pant.pricePant.ToString();
+            SetStateBtn(0);
+            priceText.text = pant.price.ToString();
         }
     }
 
@@ -67,18 +70,27 @@ public class Skin_Pant : CanvasSkin
             {
                 DataManager.ins.playerData.idPant = SelectingID;
                 Player.ins.PantToUse = DataManager.ins.playerData.idPant;
-                SetStatePant(SelectingID);
+                Player.ins.SetPant(Player.ins.PantToUse);
+                SetStatePant();
             }
-            else return;
+            else
+            {
+                DataManager.ins.playerData.idPant = 0;
+                Player.ins.PantToUse = 0;
+                Player.ins.SetPant(0);
+                SetStatePant();
+            }
         }
         else
         {
+
             if (DataManager.ins.playerData.gold > int.Parse(priceText.text))
             {
+                GetCurrentShopBtn().UnLock();
                 DataManager.ins.playerData.gold -= int.Parse(priceText.text);
                 UpdateGoldText();
                 DataManager.ins.playerData.status_Pant[SelectingID] = true;
-                SetStatePant(SelectingID);
+                SetStatePant();
             }
         }
     }

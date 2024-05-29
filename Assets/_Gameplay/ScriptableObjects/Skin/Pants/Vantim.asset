@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pantID: 8
   pantName: Vantim
-  pricePant: 5000
+  price: 3000
   damage: 0
   speed: 0
   pantMaterial: {fileID: 2100000, guid: f38af7c2972424e4dadbbf2d45245496, type: 2}

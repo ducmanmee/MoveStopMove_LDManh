@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pantID: 6
   pantName: Rainbow
-  pricePant: 1000
+  price: 1900
   damage: 0
   speed: 0
   pantMaterial: {fileID: 2100000, guid: f0eb7c91c0cc7cd4ea082e2acd21af53, type: 2}

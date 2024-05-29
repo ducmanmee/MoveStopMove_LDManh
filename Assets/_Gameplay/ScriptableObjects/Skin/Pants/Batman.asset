@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pantID: 0
   pantName: Batman
-  pricePant: 100
+  price: 100
   damage: 0
   speed: 0
   pantMaterial: {fileID: 2100000, guid: 813a2fb06f4cdb64a9720129e74703be, type: 2}

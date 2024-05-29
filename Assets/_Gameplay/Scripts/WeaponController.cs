@@ -22,6 +22,7 @@ public class WeaponController : MonoBehaviour
 
     private void Update()
     {
+        if(owner.IsDead) OnDespawn();
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
         distanceToDes += speed * Time.deltaTime;
         if (distanceToDes > 6f)
@@ -46,6 +47,10 @@ public class WeaponController : MonoBehaviour
                 Character C = other.GetComponent<Character>();
                 C.IsDead = true;
                 C.Dead();
+                if(owner is Player)
+                {
+                    owner.CountScaleCharacter();
+                }    
                 OnDespawn();   
             }    
         }

@@ -46,5 +46,6 @@ public class CanvasMainmenu : UICanvas
         Player.ins.ChangeAnim(Constain.ANIM_DANCE);
         UIManager.ins.OpenUI<CanvasShopFashion>();
         CanvasShopFashion.ins.SetStateShop(0);
+        Skin_Pant.ins.OnInit();
     }   
 }

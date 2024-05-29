@@ -4,18 +4,8 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Pant", menuName = "Scriptable Objects/Hats")]
 
-public class Hat : ScriptableObject
+public class Hat : Item
 {
-    [Header("Hat Name")]
-    public int hatID;
-    public string hatName;
-    public int priceHat;
-
-
-    [Header("Hat Stats")]
-    public int damage;
-    public int speed;
-
     [Header("Hat Model")]
     public GameObject hatModel;
 }

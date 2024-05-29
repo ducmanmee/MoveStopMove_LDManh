@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pantID: 3
   pantName: Dabao
-  pricePant: 500
+  price: 700
   damage: 0
   speed: 0
   pantMaterial: {fileID: 2100000, guid: 2d4f05f8f2767924a8250014e2955d74, type: 2}

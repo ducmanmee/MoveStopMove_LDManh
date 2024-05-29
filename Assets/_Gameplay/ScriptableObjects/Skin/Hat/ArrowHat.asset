@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hatID: 0
   hatName: 
-  priceHat: 100
+  price: 100
   damage: 0
   speed: 0
   hatModel: {fileID: 0}

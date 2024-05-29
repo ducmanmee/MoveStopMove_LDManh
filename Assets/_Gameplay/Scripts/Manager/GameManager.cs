@@ -7,9 +7,13 @@ using UnityEngine.Rendering;
 public class GameManager : MonoBehaviour
 {
     public static GameManager ins;
-    public int numberOfEnemies = 100;
     public float minDistance;
     public float maxDistance;
+    private int totalEnemiesSpawned = 0;
+    private int maxEnemies = 50;
+    private int maxEnemiesOnScreen = 10;
+    private int counterEnemy = 50;
+
     private Quaternion startPlayer;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Camera shopWeaponCamera;
@@ -70,7 +74,7 @@ public class GameManager : MonoBehaviour
         int spawnedEnemies = 0;
         int maxAttempts = 1000;
 
-        while (spawnedEnemies < numberOfEnemies && maxAttempts > 0)
+        while (activeEnemys.Count < maxEnemiesOnScreen && totalEnemiesSpawned < maxEnemies && maxAttempts > 0)
         {
             Vector3 randomPosition = GetRandomPosition();
             bool isValidPosition = true;
@@ -97,11 +101,13 @@ public class GameManager : MonoBehaviour
                 enemy.gameObject.transform.position = randomPosition;
                 enemyPositions.Add(randomPosition);
                 spawnedEnemies++;
+                totalEnemiesSpawned++;
             }
 
             maxAttempts--;
         }
     }
+
 
 
     public void ClearEnemyActive()
@@ -117,10 +123,13 @@ public class GameManager : MonoBehaviour
 
     public void RemoveEnemy(Enemy enemy)
     {
+        counterEnemy--;
         activeEnemys.Remove(enemy);
+        SpawnEnemies(); 
     }
 
-    public int GetCharacterAlive() => activeEnemys.Count + 1;
+    public int GetCharacterAlive() => counterEnemy;
+
 
     Vector3 GetRandomPosition()
     {
@@ -142,6 +151,7 @@ public class GameManager : MonoBehaviour
     {
         GameManager.ins.ChangeState(new PlayState());
         Player.ins.OnInit();
+        counterEnemy = maxEnemies;
         UIManager.ins.OpenUI<CanvasGameplay>();
         Time.timeScale = 1;
         GameManager.ins.OnInit();

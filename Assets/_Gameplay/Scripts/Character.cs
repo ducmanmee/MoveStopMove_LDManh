@@ -7,16 +7,21 @@ using UnityEngine.UIElements;
 public class Character : MonoBehaviour
 {
     private string currentAnim;
-    [SerializeField] private Animator anim;
-    public SkinnedMeshRenderer rendererCharacter;
+    public Animator animCharacter;
+    public List<Animator> animCharacterList;
+    public List<GameObject> skinCharacterList;
+    public List<Transform> weaponPointList;
+
+    public Transform startTransformPlayer;
     [SerializeField] private Rigidbody characterBody;
     public List<Character> characterInRange = new List<Character>();
 
     public List<GameObject> weaponCharacter;
     public List<GameObject> hatCharacter;
     public List<Material> pantCharacter;
+    public List<GameObject> khienCharacter;
 
-    [SerializeField] private Transform attackPoint;
+    public Transform attackPoint;
     private Character currentCharacter;
     private float distanceToCharacter;
     private float closestDistance = float.MaxValue;
@@ -25,15 +30,19 @@ public class Character : MonoBehaviour
     private int weaponCharacterToUse;
     private int pantCharacterToUse;
     private int hatCharacterToUse;
+    private int setSkinCharacterToUse;
+    private int setKhienCharacterToUse;
 
     public bool isDead;
     public bool delayAttack;
     public Transform weaponPoint;
+    public Transform startAttackPoint;
 
     public WeaponController bullet;
     public GameObject weapon;
-    public SkinnedMeshRenderer pantMaterialCharacte;
+    public SkinnedMeshRenderer pantMaterialCharacter;
 
+    private int countScale = 0;
 
 
     //param move
@@ -45,6 +54,7 @@ public class Character : MonoBehaviour
     public virtual void OnInit()
     {
         isDead = false;
+        startAttackPoint = attackPoint;
     }
 
     public virtual void OnDespawn()
@@ -92,9 +102,9 @@ public class Character : MonoBehaviour
     {
         if (currentAnim != animName)
         {
-            anim.ResetTrigger(currentAnim);
+            animCharacter.ResetTrigger(currentAnim);
             currentAnim = animName;
-            anim.SetTrigger(currentAnim);
+            animCharacter.SetTrigger(currentAnim);
         }
     }
 
@@ -108,14 +118,16 @@ public class Character : MonoBehaviour
         weapon.transform.parent = weaponPoint.transform;
         weapon.transform.localPosition = Vector3.zero;
         weapon.transform.localRotation = Quaternion.identity;
+        weapon.transform.localScale = skinCharacterList[SetSkinToUse].transform.localScale;
     }
-    
+
     public void SetupBullet()
     {  
         bullet = Pooling.ins.SpawnFromPool(weaponCharacterToUse.ToString());
         bullet.owner = this;
         bullet.gameObject.transform.position = attackPoint.position;
         bullet.gameObject.transform.rotation = attackPoint.rotation;
+        bullet.gameObject.transform.localScale = skinCharacterList[SetSkinToUse].transform.localScale;
     }    
 
     public virtual void NearestEnemy()
@@ -226,21 +238,38 @@ public class Character : MonoBehaviour
         set { hatCharacterToUse = value; }
     }
 
+    public int SetSkinToUse
+    {
+        get { return setSkinCharacterToUse; }
+        set { setSkinCharacterToUse = value; }
+    }
+
+    public int KhienToUse
+    {
+        get { return setKhienCharacterToUse; }
+        set { setKhienCharacterToUse = value; }
+    }
+
     public bool IsDead
     {
         get { return isDead; }
         set { isDead = value; }
     }
 
-    public void SetPant(Material materialPant)
+    public void SetPant(int index)
     {
-        pantMaterialCharacte.material = materialPant;
+        pantMaterialCharacter.material = pantCharacter[index];
     }
 
     public void SetHat(int index)
     {
         for (int i = 0; i < hatCharacter.Count; i++)
         {
+            if(index == 0)
+            {
+                hatCharacter[i].SetActive(false);
+                continue;
+            }
             if (i == index)
             {
                 hatCharacter[i].SetActive(true);
@@ -250,8 +279,70 @@ public class Character : MonoBehaviour
                 hatCharacter[i].SetActive(false);
             }
         }
+    }
+
+    public void SetKhien(int index)
+    {
+        for (int i = 0; i < khienCharacter.Count; i++)
+        {
+            if (i == index)
+            {
+                khienCharacter[i].SetActive(true);
+            }
+            else
+            {
+                khienCharacter[i].SetActive(false);
+            }
+        }
     }   
     
+    public void ResetKhien()
+    {
+        for(int i = 0; i < khienCharacter.Count; i++)
+        {
+            if (khienCharacter[i].activeSelf)
+            {
+                khienCharacter[i].SetActive(false); 
+            }    
+        }    
+    }    
+
+    public void SetSkin(int index)
+    {
+        for (int i = 0; i < skinCharacterList.Count; i++)
+        {
+            if (i == index)
+            {
+                skinCharacterList[i].SetActive(true);
+                weaponPoint = weaponPointList[i];
+                animCharacter = animCharacterList[i];
+                animCharacter.ResetTrigger(currentAnim);
+                currentAnim = Constain.ANIM_DANCE;
+                animCharacter.SetTrigger(currentAnim);
+            }
+            else
+            {
+                skinCharacterList[i].SetActive(false);
+            }
+        }
+    }    
+
+    public int CountScale
+    {
+        get { return countScale; }
+        set { countScale = value; }
+    }
+
+    public void CountScaleCharacter()
+    {
+        countScale++;
+        if(countScale == 3)
+        {
+            skinCharacterList[SetSkinToUse].transform.localScale = new Vector3(skinCharacterList[SetSkinToUse].transform.localScale.x + .1f, skinCharacterList[SetSkinToUse].transform.localScale.y + .1f, skinCharacterList[SetSkinToUse].transform.localScale.z +.1f);
+            countScale = 0;
+            attackPoint = startAttackPoint;
+        }    
+    }
 
     public virtual void SetAim(bool active)
     {

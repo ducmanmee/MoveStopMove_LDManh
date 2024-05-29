@@ -43,6 +43,10 @@ public class Enemy : Character
         base.OnInit();
         ChangeState(new IdleState());
         WeaponToUse = Random.Range(0, 11);
+        PantToUse = Random.Range(0, 8);
+        HatToUse = Random.Range(0, 9);
+        SetPant(PantToUse);
+        SetHat(HatToUse);
         SetupWeapon();
     }
 

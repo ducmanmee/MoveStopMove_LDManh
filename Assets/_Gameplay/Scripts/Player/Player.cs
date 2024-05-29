@@ -14,6 +14,8 @@ public class Player : Character
     public Vector3 movementDirection;
     public bool canAttack;
 
+
+
     private int pantPlayerToUse;
 
     private void MakeInstance()
@@ -27,6 +29,9 @@ public class Player : Character
     private void Awake()
     {
         MakeInstance();
+        startTransformPlayer = transform;
+        startAttackPoint = attackPoint;
+        
         
     }
     private void Update()
@@ -43,12 +48,16 @@ public class Player : Character
     public override void OnInit()
     {  
         base.OnInit();
+        skinCharacterList[SetSkinToUse].transform.localScale = startTransformPlayer.localScale;
         transform.position = Constain.START_POINT;
-        /*WeaponToUse = DataManager.ins.playerData.idWeapon;
-        PantToUse = DataManager.ins.playerData.idPant;*/
+        WeaponToUse = DataManager.ins.playerData.idWeapon;
+        PantToUse = DataManager.ins.playerData.idPant;
+        SetSkinToUse = DataManager.ins.playerData.idSetSkin;
         SetHat(DataManager.ins.playerData.idHat);
-        SetPant(pantCharacter[PantToUse]);
+        SetPant(PantToUse);
+        SetSkin(SetSkinToUse);
         SetupWeapon();
+        weaponPoint = weaponPointList[SetSkinToUse];
         ChangeState(new PIdleState());
     }
 
@@ -123,6 +132,6 @@ public class Player : Character
         GameManager.ins.ChangeState(new LoseState());
         ChangeState(new PDeadState());
         return;
-    }
+    }    
 
 }

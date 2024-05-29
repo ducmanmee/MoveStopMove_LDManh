@@ -10,10 +10,10 @@ public class Skin_Hat : CanvasSkin
 
     private void MakeInstance()
     {
-        if(ins == null)
+        if (ins == null)
         {
             ins = this;
-        }    
+        }
     }
 
     private void Awake()
@@ -29,36 +29,39 @@ public class Skin_Hat : CanvasSkin
     public override void OnInit()
     {
         base.OnInit();
-        SelectingID = 0;
-        SetStateHat(SelectingID);
+        SelectingID = 1;
+        CheckSelectItem();
+        Player.ins.SetHat(SelectingID);
+        SetStateHat();
     }
 
     public override void Btn_Click()
     {
         base.Btn_Click();
         Player.ins.SetHat(SelectingID);
-        SetStateHat(SelectingID);
-    }  
+        SetStateHat();
+    }
 
-    public void SetStateHat(int index)
+    public void SetStateHat()
     {
-        hat = (Hat)scriptableObjects[SelectingID];
-        if (DataManager.ins.playerData.status_Hat[index])
+        hat = (Hat)scriptableObjects[SelectingID - 1];
+        if (DataManager.ins.playerData.status_Hat[SelectingID])
         {
-            if(Player.ins.HatToUse == SelectingID)
+            if (Player.ins.HatToUse == SelectingID)
             {
-                priceText.text = "Equip";
+                SetStateBtn(2);
             }
             else
             {
-                priceText.text = "Select";
+                SetStateBtn(1);
             }
-        } 
+        }
         else
         {
-            priceText.text = hat.priceHat.ToString();
-        }    
-    }    
+            SetStateBtn(0);
+            priceText.text = hat.price.ToString();
+        }
+    }
 
     public void Buy()
     {
@@ -68,20 +71,28 @@ public class Skin_Hat : CanvasSkin
             {
                 DataManager.ins.playerData.idHat = SelectingID;
                 Player.ins.HatToUse = DataManager.ins.playerData.idHat;
-                SetStateHat(SelectingID);
+                Player.ins.SetHat(Player.ins.HatToUse);
+                SetStateHat();
             }
-            else return;
+            else
+            {
+                DataManager.ins.playerData.idHat = 0;
+                Player.ins.HatToUse = 0;
+                Player.ins.SetHat(0);
+                SetStateHat();
+            }
         }
         else
         {
-            if(DataManager.ins.playerData.gold > int.Parse(priceText.text))
+            if (DataManager.ins.playerData.gold > int.Parse(priceText.text))
             {
+                GetCurrentShopBtn().UnLock();
                 DataManager.ins.playerData.gold -= int.Parse(priceText.text);
                 UpdateGoldText();
                 DataManager.ins.playerData.status_Hat[SelectingID] = true;
-                SetStateHat(SelectingID);
+                SetStateHat();
             }
         }
-    }    
+    }
 
 }
