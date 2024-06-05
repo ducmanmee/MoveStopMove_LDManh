@@ -87,7 +87,7 @@ public class Skin_FullSet : CanvasSkin
         {
             if (DataManager.ins.playerData.gold > int.Parse(priceText.text))
             {
-                GetCurrentShopBtn().UnLock();
+                GetCurrentShopBtn().UnLock(true);
                 DataManager.ins.playerData.gold -= int.Parse(priceText.text);
                 UpdateGoldText();
                 DataManager.ins.playerData.status_SetSkin[SelectingID] = true;

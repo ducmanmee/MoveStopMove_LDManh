@@ -9,7 +9,8 @@ public class AttackRange : MonoBehaviour
     {
         if(other.CompareTag(Constain.TAG_ENEMY) || other.CompareTag(Constain.TAG_PLAYER))
         {
-            Character character = other.GetComponent<Character>();
+            Debug.Log(other.GetType());
+            Character character = Cache.GetCharacter(other);
             C.AddCharacterInRange(character);
         }    
     }
@@ -18,7 +19,7 @@ public class AttackRange : MonoBehaviour
     {
         if (other.CompareTag(Constain.TAG_ENEMY) || other.CompareTag(Constain.TAG_PLAYER))
         {
-            Character character = other.GetComponent<Character>();
+            Character character = Cache.GetCharacter(other);
             C.RemoveCharacterInRange(character);
         }
     }

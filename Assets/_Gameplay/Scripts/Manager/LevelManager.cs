@@ -6,6 +6,7 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager ins;
     [SerializeField] GameObject mapPrefab;
+    [SerializeField] List<Transform> swarmEnemyPos;
 
     private void MakeInstance()
     {
@@ -29,4 +30,6 @@ public class LevelManager : MonoBehaviour
     {
 
     }    
+
+    public List<Transform> GetSwarmPos() => swarmEnemyPos;
 }

@@ -44,12 +44,16 @@ public class Character : MonoBehaviour
 
     private int countScale = 0;
 
-
     //param move
     public Vector3 directionToCharacter;
     Quaternion targetRotation;
     public bool isMoving;
     private float delayAttackTime = .25f;
+
+    //Booster
+    public bool weaponBoosted = false; 
+    public float boostedWeaponScale = 2f; 
+    public float normalWeaponScale = 1f;
 
     public virtual void OnInit()
     {
@@ -82,8 +86,7 @@ public class Character : MonoBehaviour
         }
         GetDirectionToCharacter(nearestCharacter);
         ChangeAnim(Constain.ANIM_ATTACK);
-        StartCoroutine(ThrowBullet());
-        
+        StartCoroutine(ThrowBullet());  
     }  
 
     IEnumerator ThrowBullet()
@@ -96,7 +99,7 @@ public class Character : MonoBehaviour
         }
         yield return new WaitForSeconds(delayAttackTime); 
         delayAttack = false;
-    }    
+    }
 
     public void ChangeAnim(string animName)
     {
@@ -127,7 +130,15 @@ public class Character : MonoBehaviour
         bullet.owner = this;
         bullet.gameObject.transform.position = attackPoint.position;
         bullet.gameObject.transform.rotation = attackPoint.rotation;
-        bullet.gameObject.transform.localScale = skinCharacterList[SetSkinToUse].transform.localScale;
+        if (weaponBoosted)
+        {
+            bullet.gameObject.transform.localScale = skinCharacterList[SetSkinToUse].transform.localScale * boostedWeaponScale;
+            weaponBoosted = false;
+        }
+        else
+        {
+            bullet.gameObject.transform.localScale = skinCharacterList[SetSkinToUse].transform.localScale * normalWeaponScale;
+        }
     }    
 
     public virtual void NearestEnemy()

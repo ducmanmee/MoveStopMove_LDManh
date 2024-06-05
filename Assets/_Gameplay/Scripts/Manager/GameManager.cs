@@ -9,10 +9,10 @@ public class GameManager : MonoBehaviour
     public static GameManager ins;
     public float minDistance;
     public float maxDistance;
-    private int totalEnemiesSpawned = 0;
-    private int maxEnemies = 50;
-    private int maxEnemiesOnScreen = 10;
-    private int counterEnemy = 50;
+    public int totalEnemiesSpawned = 0;
+    public int maxEnemies = 50;
+    public int maxEnemiesOnScreen = 10;
+    public int counterEnemy = 50;
 
     private Quaternion startPlayer;
     [SerializeField] private Camera mainCamera;
@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
     public void OnInit()
     {
         ChangeState(new PlayState());
+        totalEnemiesSpawned = 0;
         SpawnEnemies();
     }
 
@@ -67,15 +68,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
-    void SpawnEnemies()
+    private void SpawnEnemies()
     {
         List<Vector3> enemyPositions = new List<Vector3>();
-        int spawnedEnemies = 0;
         int maxAttempts = 1000;
 
-        while (activeEnemys.Count < maxEnemiesOnScreen && totalEnemiesSpawned < maxEnemies && maxAttempts > 0)
+        while (totalEnemiesSpawned < maxEnemies && maxAttempts > 0)
         {
+            if (activeEnemys.Count >= maxEnemiesOnScreen) break;
+
             Vector3 randomPosition = GetRandomPosition();
             bool isValidPosition = true;
 
@@ -100,15 +101,12 @@ public class GameManager : MonoBehaviour
                 activeEnemys.Add(enemy);
                 enemy.gameObject.transform.position = randomPosition;
                 enemyPositions.Add(randomPosition);
-                spawnedEnemies++;
                 totalEnemiesSpawned++;
             }
 
             maxAttempts--;
         }
     }
-
-
 
     public void ClearEnemyActive()
     {
@@ -129,7 +127,6 @@ public class GameManager : MonoBehaviour
     }
 
     public int GetCharacterAlive() => counterEnemy;
-
 
     Vector3 GetRandomPosition()
     {
@@ -169,7 +166,27 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
         UIManager.ins.OpenUI<CanvasFail>();
-        GameManager.ins.ClearEnemyActive();
+    }
+
+    public void CheckWin()
+    {
+        if(counterEnemy == 0)
+        {
+            StartCoroutine(WinGame());
+        }
+        else
+        {
+            CanvasGameplay.ins.UpdateCharacterAlive();
+        }
+    }    
+
+    public IEnumerator WinGame()
+    {
+        Player.ins.IsWin = true;
+        Player.ins.PlayerRotation = startPlayer;
+        Player.ins.ChangeState(new PWinState());
+        yield return new WaitForSeconds(3.5f);
+        UIManager.ins.OpenUI<CanvasVictory>();
     }
 
     public IState<GameManager> GetGameState() => currentState;

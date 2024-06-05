@@ -84,7 +84,7 @@ public class Skin_Khien : CanvasSkin
         {
             if (DataManager.ins.playerData.gold > int.Parse(priceText.text))
             {
-                GetCurrentShopBtn().UnLock();
+                GetCurrentShopBtn().UnLock(true);
                 DataManager.ins.playerData.gold -= int.Parse(priceText.text);
                 UpdateGoldText();
                 DataManager.ins.playerData.status_Khien[SelectingID] = true;

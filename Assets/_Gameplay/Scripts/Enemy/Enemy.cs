@@ -60,8 +60,8 @@ public class Enemy : Character
     {
         ChangeState(new DeadState());
         GameManager.ins.RemoveEnemy(this);
-        CanvasGameplay.ins.UpdateCharacterAlive();
         yield return new WaitForSeconds(Constain.TIMER_DEAD);
+        GameManager.ins.CheckWin();
         PoolingEnemy.ins.EnQueueObj(Constain.TAG_ENEMY, this);
     }
 

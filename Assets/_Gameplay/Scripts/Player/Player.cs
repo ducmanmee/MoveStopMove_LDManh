@@ -14,7 +14,7 @@ public class Player : Character
     public Vector3 movementDirection;
     public bool canAttack;
 
-
+    public bool isWin;
 
     private int pantPlayerToUse;
 
@@ -48,6 +48,7 @@ public class Player : Character
     public override void OnInit()
     {  
         base.OnInit();
+        isWin = false;
         skinCharacterList[SetSkinToUse].transform.localScale = startTransformPlayer.localScale;
         transform.position = Constain.START_POINT;
         WeaponToUse = DataManager.ins.playerData.idWeapon;
@@ -56,6 +57,7 @@ public class Player : Character
         SetHat(DataManager.ins.playerData.idHat);
         SetPant(PantToUse);
         SetSkin(SetSkinToUse);
+        SetKhien(KhienToUse);
         SetupWeapon();
         weaponPoint = weaponPointList[SetSkinToUse];
         ChangeState(new PIdleState());
@@ -91,7 +93,13 @@ public class Player : Character
         if(isDead)
         {
             Dead();
-        }    
+        }
+        if (isWin)
+        {
+            movementDirection = Vector3.zero;
+            return;
+        } 
+
         movementDirection = new Vector3(joystick.Horizontal, 0, joystick.Vertical).normalized;
         if (joystick.Horizontal != 0 || joystick.Vertical != 0)
         {
@@ -132,6 +140,13 @@ public class Player : Character
         GameManager.ins.ChangeState(new LoseState());
         ChangeState(new PDeadState());
         return;
-    }    
+    }
 
+    public bool IsWin
+    {
+        get { return isWin; }
+        set { isWin = value; }
+    }
+
+    public Vector3 PositionPlayer() => transform.position;    
 }

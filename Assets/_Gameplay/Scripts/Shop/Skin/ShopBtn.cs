@@ -15,7 +15,6 @@ public class ShopBtn : MonoBehaviour
 
     public void Click()
     {
-        Debug.Log(idBtnShop);
         if(CanvasShopFashion.ins.GetCurrentShop() == 0)
         {
             Skin_Pant.ins.SelectingID = idBtnShop;
@@ -38,9 +37,12 @@ public class ShopBtn : MonoBehaviour
         }    
     }    
 
-    public void UnLock()
+    public void UnLock(bool isLock)
     {
-        lockSkin.SetActive(false);
+        if(isLock)
+        {
+            lockSkin.SetActive(false);
+        }    
     }
     
     public void StatusBtn(bool isActive)

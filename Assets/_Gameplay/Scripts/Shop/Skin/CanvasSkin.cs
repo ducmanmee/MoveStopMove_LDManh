@@ -46,13 +46,20 @@ public class CanvasSkin : Singleton<CanvasSkin>
     private void UnlockItems(int index)
     {
         int currentShop = CanvasShopFashion.ins.GetCurrentShop();
-        if (currentShop == 0 && DataManager.ins.playerData.status_Pant[index + 1])
+        switch (currentShop)
         {
-            btn_shop[index].UnLock();
-        }
-        else if (currentShop == 1 && DataManager.ins.playerData.status_Hat[index + 1])
-        {
-            btn_shop[index].UnLock();
+            case 0:
+                btn_shop[index].UnLock(DataManager.ins.playerData.status_Pant[index + 1]);
+                break;
+            case 1:
+                btn_shop[index].UnLock(DataManager.ins.playerData.status_Hat[index + 1]);
+                break;
+            case 2:
+                btn_shop[index].UnLock(DataManager.ins.playerData.status_Khien[index + 1]);
+                break;
+            default:
+                btn_shop[index].UnLock(DataManager.ins.playerData.status_SetSkin[index + 1]);
+                break;
         }
     }
 

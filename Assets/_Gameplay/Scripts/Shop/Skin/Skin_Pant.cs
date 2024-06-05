@@ -86,7 +86,7 @@ public class Skin_Pant : CanvasSkin
 
             if (DataManager.ins.playerData.gold > int.Parse(priceText.text))
             {
-                GetCurrentShopBtn().UnLock();
+                GetCurrentShopBtn().UnLock(true);
                 DataManager.ins.playerData.gold -= int.Parse(priceText.text);
                 UpdateGoldText();
                 DataManager.ins.playerData.status_Pant[SelectingID] = true;
