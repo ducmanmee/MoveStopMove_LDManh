@@ -49,8 +49,17 @@ public class Player : Character
     {  
         base.OnInit();
         isWin = false;
+        CountScale = 0;
+        weaponBoosted = false;
+        boosterVFX.SetActive(false);
         skinCharacterList[SetSkinToUse].transform.localScale = startTransformPlayer.localScale;
         transform.position = Constain.START_POINT;
+        SetupSkin();
+        ChangeState(new PIdleState());
+    }
+
+    public void SetupSkin()
+    {
         WeaponToUse = DataManager.ins.playerData.idWeapon;
         PantToUse = DataManager.ins.playerData.idPant;
         SetSkinToUse = DataManager.ins.playerData.idSetSkin;
@@ -60,8 +69,7 @@ public class Player : Character
         SetKhien(KhienToUse);
         SetupWeapon();
         weaponPoint = weaponPointList[SetSkinToUse];
-        ChangeState(new PIdleState());
-    }
+    }    
 
     public override void OnDespawn()
     {

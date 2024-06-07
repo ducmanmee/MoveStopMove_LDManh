@@ -99,7 +99,7 @@ public class CanvasSkin : Singleton<CanvasSkin>
         if (icon != null && iconTexture != null)
         {
             icon.sprite = Sprite.Create(iconTexture, new Rect(0, 0, iconTexture.width, iconTexture.height), Vector2.zero);
-            icon.SetNativeSize();
+            //icon.SetNativeSize();
         }
     }
 

@@ -10,9 +10,9 @@ public class GameManager : MonoBehaviour
     public float minDistance;
     public float maxDistance;
     public int totalEnemiesSpawned = 0;
-    public int maxEnemies = 50;
-    public int maxEnemiesOnScreen = 10;
-    public int counterEnemy = 50;
+    public int maxEnemies;
+    public int maxEnemiesOnScreen;
+    public int counterEnemy;
 
     private Quaternion startPlayer;
     [SerializeField] private Camera mainCamera;
@@ -70,42 +70,18 @@ public class GameManager : MonoBehaviour
 
     private void SpawnEnemies()
     {
-        List<Vector3> enemyPositions = new List<Vector3>();
-        int maxAttempts = 1000;
-
-        while (totalEnemiesSpawned < maxEnemies && maxAttempts > 0)
+        for(int i=0; i < maxEnemiesOnScreen; i++)
         {
-            if (activeEnemys.Count >= maxEnemiesOnScreen) break;
-
-            Vector3 randomPosition = GetRandomPosition();
-            bool isValidPosition = true;
-
-            if (Vector3.Distance(randomPosition, Player.ins.transform.position) < minDistance)
-            {
-                isValidPosition = false;
-            }
-
-            foreach (Vector3 pos in enemyPositions)
-            {
-                if (Vector3.Distance(randomPosition, pos) < minDistance)
-                {
-                    isValidPosition = false;
-                    break;
-                }
-            }
-
-            if (isValidPosition)
-            {
-                Enemy enemy = PoolingEnemy.ins.SpawnFromPool(Constain.TAG_ENEMY);
-                enemy.OnInit();
-                activeEnemys.Add(enemy);
-                enemy.gameObject.transform.position = randomPosition;
-                enemyPositions.Add(randomPosition);
-                totalEnemiesSpawned++;
-            }
-
-            maxAttempts--;
-        }
+            SwarmE();
+        }      
+    }
+    public void SwarmE()
+    {
+        Enemy enemy = PoolingEnemy.ins.SpawnFromPool(Constain.TAG_ENEMY);
+        enemy.OnInit();
+        activeEnemys.Add(enemy);
+        enemy.gameObject.transform.position = GetRandomPosition();
+        totalEnemiesSpawned++;
     }
 
     public void ClearEnemyActive()
@@ -123,7 +99,7 @@ public class GameManager : MonoBehaviour
     {
         counterEnemy--;
         activeEnemys.Remove(enemy);
-        SpawnEnemies(); 
+        if(totalEnemiesSpawned < maxEnemies) SwarmE();
     }
 
     public int GetCharacterAlive() => counterEnemy;
@@ -187,6 +163,7 @@ public class GameManager : MonoBehaviour
         Player.ins.ChangeState(new PWinState());
         yield return new WaitForSeconds(3.5f);
         UIManager.ins.OpenUI<CanvasVictory>();
+        GameManager.ins.ClearEnemyActive();
     }
 
     public IState<GameManager> GetGameState() => currentState;

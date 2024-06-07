@@ -54,6 +54,7 @@ public class Character : MonoBehaviour
     public bool weaponBoosted = false; 
     public float boostedWeaponScale = 2f; 
     public float normalWeaponScale = 1f;
+    public GameObject boosterVFX;
 
     public virtual void OnInit()
     {
@@ -130,16 +131,28 @@ public class Character : MonoBehaviour
         bullet.owner = this;
         bullet.gameObject.transform.position = attackPoint.position;
         bullet.gameObject.transform.rotation = attackPoint.rotation;
-        if (weaponBoosted)
+        Booster();
+        
+    }  
+    
+    public void Booster()
+    {
+        if(weaponBoosted)
         {
             bullet.gameObject.transform.localScale = skinCharacterList[SetSkinToUse].transform.localScale * boostedWeaponScale;
             weaponBoosted = false;
+            BoosterVFX(false);
         }
         else
         {
             bullet.gameObject.transform.localScale = skinCharacterList[SetSkinToUse].transform.localScale * normalWeaponScale;
         }
-    }    
+    }  
+    
+    public void BoosterVFX(bool active)
+    {
+        boosterVFX.SetActive(active);
+    }
 
     public virtual void NearestEnemy()
     {

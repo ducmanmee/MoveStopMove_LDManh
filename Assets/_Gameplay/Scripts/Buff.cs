@@ -15,6 +15,7 @@ public class Buff : MonoBehaviour
                 boosterPrefab.SetActive(false);
                 StartCoroutine(ActiveBooster());
                 Character C = Cache.GetCharacter(other);
+                C.BoosterVFX(true);
                 C.weaponBoosted = true;
                 isBooster = true;
             }    

@@ -3,6 +3,7 @@ using DG.Tweening;
 
 public class WeaponController : MonoBehaviour
 {
+    public static WeaponController ins;
     public float speed = 1f;
     public Transform mesh;
     Quaternion target;
@@ -11,7 +12,7 @@ public class WeaponController : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     public void OnDespawn()
@@ -50,7 +51,7 @@ public class WeaponController : MonoBehaviour
                 if(owner is Player)
                 {
                     owner.CountScaleCharacter();
-                }    
+                }
                 OnDespawn();   
             }    
         }
