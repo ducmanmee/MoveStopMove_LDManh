@@ -42,6 +42,7 @@ public class Enemy : Character
     {
         base.OnInit();
         ChangeState(new IdleState());
+        NameOfCharacter = NameCharacter.GetRandomName();
         WeaponToUse = Random.Range(0, 11);
         PantToUse = Random.Range(0, 8);
         HatToUse = Random.Range(0, 9);
@@ -81,15 +82,17 @@ public class Enemy : Character
         base.Attack();
     }
 
-    public override void StopMoving()
-    {
-
-    }
-
     public void RandomPosition()
     {
-        Vector3 randomDirection = Random.insideUnitSphere.normalized;
-        target = transform.position + randomDirection * 6f;
+        Vector3 randomDirection;
+        do
+        {
+            float randomX = Random.Range(-39, 39);
+            float randomZ = Random.Range(-32, 32);
+            randomDirection = new Vector3(randomX, 0, randomZ);
+        } while (Vector3.Distance(transform.position, randomDirection) > 5f);
+
+        target = randomDirection;
         target.y = 0f;
         transform.LookAt(target);
     }

@@ -23,7 +23,7 @@ public class WeaponController : MonoBehaviour
 
     private void Update()
     {
-        if(owner.IsDead) OnDespawn();
+        //if(owner.IsDead) OnDespawn();
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
         distanceToDes += speed * Time.deltaTime;
         if (distanceToDes > 6f)
@@ -46,14 +46,23 @@ public class WeaponController : MonoBehaviour
             if(other.gameObject != owner.gameObject)
             {
                 Character C = Cache.GetCharacter(other);
-                C.IsDead = true;
-                C.Dead();
-                if(owner is Player)
-                {
-                    owner.CountScaleCharacter();
-                }
-                OnDespawn();   
+                WeaponToKillCharacter(C);
             }    
         }
     }
+    public void WeaponToKillCharacter(Character C)
+    {
+        C.IsDead = true;
+        C.Dead();
+        if (C is Player)
+        {
+            Player.ins.NameOfKiller = owner.NameOfCharacter;
+        }
+        if (owner is Player)
+        {
+            owner.CountScaleCharacter();
+        }
+        OnDespawn();
+    }   
+
 }

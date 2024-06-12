@@ -56,6 +56,9 @@ public class Character : MonoBehaviour
     public float normalWeaponScale = 1f;
     public GameObject boosterVFX;
 
+    private string nameCharacter;
+    private string nameKiller;
+
     public virtual void OnInit()
     {
         isDead = false;
@@ -93,7 +96,7 @@ public class Character : MonoBehaviour
     IEnumerator ThrowBullet()
     {
         yield return new WaitForSeconds(.25f);
-        if (!isMoving)
+        if (!isMoving && !isDead)
         {
             weapon.SetActive(false);
             SetupBullet();
@@ -147,12 +150,9 @@ public class Character : MonoBehaviour
         {
             bullet.gameObject.transform.localScale = skinCharacterList[SetSkinToUse].transform.localScale * normalWeaponScale;
         }
-    }  
-    
-    public void BoosterVFX(bool active)
-    {
-        boosterVFX.SetActive(active);
     }
+
+    public void BoosterVFX(bool active) => boosterVFX.SetActive(active);
 
     public virtual void NearestEnemy()
     {
@@ -365,7 +365,20 @@ public class Character : MonoBehaviour
             skinCharacterList[SetSkinToUse].transform.localScale = new Vector3(skinCharacterList[SetSkinToUse].transform.localScale.x + .1f, skinCharacterList[SetSkinToUse].transform.localScale.y + .1f, skinCharacterList[SetSkinToUse].transform.localScale.z +.1f);
             countScale = 0;
             attackPoint = startAttackPoint;
+            CameraFollow.ins.IsScale = true;
         }    
+    }
+
+    public string NameOfCharacter
+    {
+        get { return nameCharacter; }
+        set { nameCharacter = value; }
+    }
+
+    public string NameOfKiller
+    {
+        get { return nameKiller; }
+        set { nameKiller = value; }
     }
 
     public virtual void SetAim(bool active)

@@ -5,8 +5,10 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager ins;
-    [SerializeField] GameObject mapPrefab;
+    [SerializeField] List<GameObject> mapPrefab;
     [SerializeField] List<Transform> swarmEnemyPos;
+    private GameObject map;
+    public int level;
 
     private void MakeInstance()
     {
@@ -20,16 +22,36 @@ public class LevelManager : MonoBehaviour
     {
         MakeInstance();
     }
-    
+
+    private void Start()
+    {
+        OnInit();
+    }
+
     public void OnInit()
     {
-        GameObject map = Instantiate(mapPrefab, Vector3.zero, Quaternion.identity);
+        level = 0;
+        ChangeMap(level);
     }    
 
     public void NextLevel()
     {
+        level++;
+        ChangeMap(level);
+        if (level >=  mapPrefab.Count)
+        {
+            ChangeMap(mapPrefab.Count - 1);
+        }
+    }
 
-    }    
+    public void ChangeMap(int level)
+    {
+        if(map != null)
+        {
+            Destroy(map);
+        }
+        map = Instantiate(mapPrefab[level], Vector3.zero, Quaternion.identity);
+    }
 
     public List<Transform> GetSwarmPos() => swarmEnemyPos;
 }

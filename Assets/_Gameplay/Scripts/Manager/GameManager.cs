@@ -102,17 +102,22 @@ public class GameManager : MonoBehaviour
         if(totalEnemiesSpawned < maxEnemies) SwarmE();
     }
 
-    public int GetCharacterAlive() => counterEnemy;
+    public int GetCharacterAlive() => counterEnemy + 1;
 
     Vector3 GetRandomPosition()
     {
         NavMeshHit hit;
         Vector3 randomPosition = Vector3.zero;
-        float distance = Random.Range(minDistance, maxDistance);
-        Vector3 randomDirection = Random.insideUnitSphere.normalized;
-        randomDirection.y = 0;
 
-        if (NavMesh.SamplePosition(Player.ins.transform.position + randomDirection * distance, out hit, maxDistance, NavMesh.AllAreas))
+        float distance = Random.Range(minDistance, maxDistance);
+
+        Vector3 randomDirection = Random.insideUnitSphere;
+        randomDirection.y = 0;
+        randomDirection.Normalize();
+
+        Vector3 potentialPosition = Player.ins.transform.position + randomDirection * distance;
+
+        if (NavMesh.SamplePosition(potentialPosition, out hit, maxDistance, NavMesh.AllAreas))
         {
             randomPosition = hit.position;
         }
@@ -141,7 +146,12 @@ public class GameManager : MonoBehaviour
     public IEnumerator LoseGame()
     {
         yield return new WaitForSeconds(1.5f);
-        UIManager.ins.OpenUI<CanvasFail>();
+        if(!(currentState is MenuState) && Player.ins.IsDead)
+        {
+            UIManager.ins.CloseAllUI();
+            UIManager.ins.OpenUI<CanvasFail>();
+            CanvasFail.ins.SetNameKiller(Player.ins.NameOfKiller);
+        }
     }
 
     public void CheckWin()
@@ -162,8 +172,12 @@ public class GameManager : MonoBehaviour
         Player.ins.PlayerRotation = startPlayer;
         Player.ins.ChangeState(new PWinState());
         yield return new WaitForSeconds(3.5f);
-        UIManager.ins.OpenUI<CanvasVictory>();
-        GameManager.ins.ClearEnemyActive();
+        if (!(GameManager.ins.GetGameState() is MenuState))
+        {
+            UIManager.ins.CloseAllUI();
+            UIManager.ins.OpenUI<CanvasVictory>();
+            GameManager.ins.ClearEnemyActive();
+        }    
     }
 
     public IState<GameManager> GetGameState() => currentState;

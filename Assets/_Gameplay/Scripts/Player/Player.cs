@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : Character
 {
     public static Player ins;
-    [SerializeField] private FixedJoystick joystick;
+    [SerializeField] private DynamicJoystick joystick;
     public float moveSpeed;
     private bool isEnemy;
     private IState<Player> currentState;

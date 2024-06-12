@@ -11,7 +11,8 @@ public class CameraFollow : MonoBehaviour
     private Vector3 targetPos;
     [SerializeField]private Vector3 offset;
     [SerializeField]private Vector3 camMenu;
-    public Vector3 startCamPos;
+    private bool isScale;
+    private Vector3 startOffset;
 
     private void MakeInstance()
     {
@@ -19,6 +20,7 @@ public class CameraFollow : MonoBehaviour
         {
             ins = this;
         }    
+        startOffset = offset;
     }     
 
     private void Awake()
@@ -35,11 +37,28 @@ public class CameraFollow : MonoBehaviour
     {
         if (GameManager.ins.GetGameState() is MenuState)
         {
+            ResetCamera();
             transform.position = camMenu;
             return;
         }   
+        if(isScale)
+        {
+            offset += new Vector3(0, .5f, .5f);
+            isScale = false;
+
+        }
         targetPos = target.position + offset;
         transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref currentVelocity, smoothTime);
     }
 
+    public void ResetCamera()
+    {
+        offset = startOffset;
+    }    
+
+    public bool IsScale
+    {
+        get { return isScale; }
+        set { isScale = value; }
+    }
 }
