@@ -151,6 +151,7 @@ public class GameManager : MonoBehaviour
             UIManager.ins.CloseAllUI();
             UIManager.ins.OpenUI<CanvasFail>();
             CanvasFail.ins.SetNameKiller(Player.ins.NameOfKiller);
+            CanvasFail.ins.SetRank(Player.ins.RankPlayer);
         }
     }
 

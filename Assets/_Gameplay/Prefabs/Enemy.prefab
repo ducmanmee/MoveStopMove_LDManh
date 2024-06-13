@@ -926,6 +926,7 @@ Transform:
   - {fileID: 3247219498776044943}
   - {fileID: 9002806200510570577}
   - {fileID: 6413439553694475815}
+  - {fileID: 1145851388506924285}
   m_Father: {fileID: 6108234066891930700}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -979,7 +980,7 @@ Transform:
   m_Children:
   - {fileID: 7316560218287401570}
   m_Father: {fileID: 6108234066891930700}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2940654051986556992
 GameObject:
@@ -1009,7 +1010,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6108234066891930700}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3284554244101699463
 GameObject:
@@ -1102,7 +1103,7 @@ Transform:
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 6108234066891930700}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!212 &7674987635445974990
 SpriteRenderer:
@@ -6391,13 +6392,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5318447009165466590}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6108234067204892580}
-  m_Father: {fileID: 6108234066891930700}
-  m_RootOrder: 1
+  m_Father: {fileID: 1278593809208618497}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &5323973591688531096
 SphereCollider:
@@ -11517,7 +11518,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1278593809208618497}
-  - {fileID: 1145851388506924285}
   - {fileID: 2088836890969716167}
   - {fileID: 4906632117962898504}
   - {fileID: 5396795884199371791}
@@ -11627,6 +11627,7 @@ MonoBehaviour:
   boosterVFX: {fileID: 2910935677731546559}
   agent: {fileID: 6108234066891930688}
   aim: {fileID: 3397907350491714394}
+  animE: {fileID: 2874743053534518290}
 --- !u!195 &6108234066891930688
 NavMeshAgent:
   m_ObjectHideFlags: 0

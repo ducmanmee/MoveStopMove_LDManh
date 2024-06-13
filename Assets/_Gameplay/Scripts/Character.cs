@@ -362,14 +362,22 @@ public class Character : MonoBehaviour
 
     public void CountScaleCharacter()
     {
-        countScale++;
-        if(countScale == 3)
+        if(countScale == 2)
         {
-            skinCharacterList[SetSkinToUse].transform.localScale = new Vector3(skinCharacterList[SetSkinToUse].transform.localScale.x + .1f, skinCharacterList[SetSkinToUse].transform.localScale.y + .1f, skinCharacterList[SetSkinToUse].transform.localScale.z +.1f);
+            ScaleCharacter(skinCharacterList[SetSkinToUse].transform, .1f);
             countScale = 0;
-            attackPoint = startAttackPoint;
             CameraFollow.ins.IsScale = true;
-        }    
+        }
+        else
+        {
+            countScale++;
+        }
+    }
+
+    public void ScaleCharacter(Transform CharacterScale, float scale)
+    {
+        CharacterScale.localScale += new Vector3(scale, scale, scale);
+        attackPoint = startAttackPoint;
     }
 
     public string NameOfCharacter

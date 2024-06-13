@@ -8,7 +8,9 @@ public class Enemy : Character
     public NavMeshAgent agent;
     private IState<Enemy> currentState;
     [SerializeField] private GameObject aim;
+    [SerializeField] private GameObject animE;
     private Vector3 target;
+    private float scaleEnemy;
 
     private void Start()
     {
@@ -46,6 +48,8 @@ public class Enemy : Character
         WeaponToUse = Random.Range(0, 11);
         PantToUse = Random.Range(0, 8);
         HatToUse = Random.Range(0, 9);
+        scaleEnemy = Random.Range(-.5f, .5f);
+        ScaleCharacter(animE.transform, scaleEnemy);
         SetPant(PantToUse);
         SetHat(HatToUse);
         SetupWeapon();
@@ -54,13 +58,13 @@ public class Enemy : Character
     public override void Dead()
     {
         base.Dead();
+        GameManager.ins.RemoveEnemy(this);
         StartCoroutine(OnDead());
     }
 
     public IEnumerator OnDead()
     {
         ChangeState(new DeadState());
-        GameManager.ins.RemoveEnemy(this);
         yield return new WaitForSeconds(Constain.TIMER_DEAD);
         GameManager.ins.CheckWin();
         PoolingEnemy.ins.EnQueueObj(Constain.TAG_ENEMY, this);

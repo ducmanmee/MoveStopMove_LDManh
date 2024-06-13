@@ -58,6 +58,7 @@ public class WeaponController : MonoBehaviour
         if (C is Player)
         {
             Player.ins.NameOfKiller = owner.NameOfCharacter;
+            Player.ins.RankPlayer = GameManager.ins.GetCharacterAlive();
         }
         if (owner is Player)
         {

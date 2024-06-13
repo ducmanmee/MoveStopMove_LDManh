@@ -17,6 +17,7 @@ public class Player : Character
     public bool isWin;
 
     private int pantPlayerToUse;
+    public int rankPlayer;
 
     private void MakeInstance()
     {
@@ -132,6 +133,7 @@ public class Player : Character
     public override void Attack()
     {
         base.Attack();
+        AudioManager.ins.PlaySound(Constain.SOUND_ATTACK);
     }
 
     public Vector3 GetDirectionToAim() => directionToCharacter;
@@ -154,6 +156,12 @@ public class Player : Character
     {
         get { return isWin; }
         set { isWin = value; }
+    }
+
+    public int RankPlayer
+    {
+        get { return rankPlayer; }
+        set { rankPlayer = value; }
     }
 
     public Vector3 PositionPlayer() => transform.position;    

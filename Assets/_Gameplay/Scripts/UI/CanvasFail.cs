@@ -39,5 +39,10 @@ public class CanvasFail : UICanvas
     public void SetNameKiller(string killer)
     {
         nameKillerText.text = killer;
-    }    
+    }
+
+    public void SetRank(int rank)
+    {
+        rankText.text = rank.ToString();
+    }
 }
