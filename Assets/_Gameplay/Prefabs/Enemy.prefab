@@ -11627,8 +11627,6 @@ MonoBehaviour:
   boosterVFX: {fileID: 2910935677731546559}
   agent: {fileID: 6108234066891930688}
   aim: {fileID: 3397907350491714394}
-  nameTextPrefab: {fileID: 6950124746238818565, guid: 9a359eb32d7b029448d69398ba1031fc, type: 3}
-  nameOffset: {x: 0, y: 2, z: 0}
 --- !u!195 &6108234066891930688
 NavMeshAgent:
   m_ObjectHideFlags: 0

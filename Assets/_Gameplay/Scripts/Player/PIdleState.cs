@@ -11,7 +11,7 @@ public class PIdleState : IState<Player>
 
     public void OnExecute(Player t)
     {
-        
+
     }
 
     public void OnExit(Player t)

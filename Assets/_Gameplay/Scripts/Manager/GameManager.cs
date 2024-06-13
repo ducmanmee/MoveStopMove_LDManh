@@ -156,13 +156,10 @@ public class GameManager : MonoBehaviour
 
     public void CheckWin()
     {
-        if(counterEnemy == 0)
+        CanvasGameplay.ins.UpdateCharacterAlive();
+        if (counterEnemy == 0)
         {
             StartCoroutine(WinGame());
-        }
-        else
-        {
-            CanvasGameplay.ins.UpdateCharacterAlive();
         }
     }    
 

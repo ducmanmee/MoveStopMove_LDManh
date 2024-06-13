@@ -88,7 +88,10 @@ public class Character : MonoBehaviour
         {
             weapon.SetActive(true);
         }
-        GetDirectionToCharacter(nearestCharacter);
+        if(nearestCharacter  != null)
+        {
+            GetDirectionToCharacter(nearestCharacter);
+        }
         ChangeAnim(Constain.ANIM_ATTACK);
         StartCoroutine(ThrowBullet());  
     }  
@@ -386,5 +389,7 @@ public class Character : MonoBehaviour
         
     }
 
-    public Rigidbody GetRigibody() => characterBody;   
+    public Rigidbody GetRigibody() => characterBody;
+
+    public int GetCharacterInRange() => characterInRange.Count;
 }
