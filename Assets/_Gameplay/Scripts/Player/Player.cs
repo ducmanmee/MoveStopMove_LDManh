@@ -133,7 +133,6 @@ public class Player : Character
     public override void Attack()
     {
         base.Attack();
-        AudioManager.ins.PlaySound(Constain.SOUND_ATTACK);
     }
 
     public Vector3 GetDirectionToAim() => directionToCharacter;

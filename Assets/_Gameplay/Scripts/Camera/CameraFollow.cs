@@ -61,4 +61,5 @@ public class CameraFollow : MonoBehaviour
         get { return isScale; }
         set { isScale = value; }
     }
+
 }

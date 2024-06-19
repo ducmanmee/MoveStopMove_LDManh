@@ -546,7 +546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.754717, g: 0.72196513, b: 0.72196513, a: 1}
+  m_Color: {r: 0.754717, g: 0.72196513, b: 0.72196513, a: 0.73333335}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -877,7 +877,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1728789761365035406
 RectTransform:
   m_ObjectHideFlags: 0
@@ -941,7 +941,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &1728789761365035407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -975,7 +975,6 @@ MonoBehaviour:
   buttons:
   - {fileID: 1728789760118215668}
   - {fileID: 1728789761291953725}
-  - {fileID: 0}
 --- !u!1 &1752031510611776191
 GameObject:
   m_ObjectHideFlags: 0

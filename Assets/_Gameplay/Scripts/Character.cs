@@ -102,6 +102,10 @@ public class Character : MonoBehaviour
         if (!isMoving && !isDead)
         {
             weapon.SetActive(false);
+            if(this is Player)
+            {
+                AudioManager.ins.PlaySound(Constain.SOUND_ATTACK);
+            }
             SetupBullet();
         }
         yield return new WaitForSeconds(delayAttackTime); 

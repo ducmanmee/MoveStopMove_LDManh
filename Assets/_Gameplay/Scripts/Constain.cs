@@ -13,6 +13,7 @@ public class Constain
     public static string ANIM_DANCE = "dance_skin";
     public static string ANIM_DEAD = "dead";
     public static string TAG_ENEMY = "Enemy";
+    public static string TAG_TARGET = "target";
     public static string TAG_PLAYER = "Player";
     public static string TAG_ATTACKRANGE = "attackRange";
     public static string TAG_WEAPON = "weapon";

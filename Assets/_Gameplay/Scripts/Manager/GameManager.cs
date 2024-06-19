@@ -79,6 +79,10 @@ public class GameManager : MonoBehaviour
     {
         Enemy enemy = PoolingEnemy.ins.SpawnFromPool(Constain.TAG_ENEMY);
         enemy.OnInit();
+        TargetIndicator target = PoolingTarget.ins.SpawnFromPool(Constain.TAG_TARGET);
+        target.SetName(enemy.NameOfCharacter);
+        target.SetOwner(enemy);
+        enemy.SetTargetIndicator(target);
         activeEnemys.Add(enemy);
         enemy.gameObject.transform.position = GetRandomPosition();
         totalEnemiesSpawned++;
@@ -130,6 +134,7 @@ public class GameManager : MonoBehaviour
         GameManager.ins.ChangeState(new PlayState());
         Player.ins.OnInit();
         counterEnemy = maxEnemies;
+        UIManager.ins.CloseAllUI();
         UIManager.ins.OpenUI<CanvasGameplay>();
         Time.timeScale = 1;
         GameManager.ins.OnInit();

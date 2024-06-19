@@ -9,6 +9,7 @@ public class Enemy : Character
     private IState<Enemy> currentState;
     [SerializeField] private GameObject aim;
     [SerializeField] private GameObject animE;
+    [SerializeField] TargetIndicator targetE;
     private Vector3 target;
     private float scaleEnemy;
 
@@ -55,6 +56,11 @@ public class Enemy : Character
         SetupWeapon();
     }
 
+    public void SetTargetIndicator(TargetIndicator T)
+    {
+        targetE = T;
+    }    
+
     public override void Dead()
     {
         base.Dead();
@@ -68,6 +74,7 @@ public class Enemy : Character
         yield return new WaitForSeconds(Constain.TIMER_DEAD);
         GameManager.ins.CheckWin();
         PoolingEnemy.ins.EnQueueObj(Constain.TAG_ENEMY, this);
+        PoolingTarget.ins.EnQueueObj(Constain.TAG_TARGET, targetE);
     }
 
 
