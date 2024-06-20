@@ -62,6 +62,8 @@ public class CanvasGameplay : UICanvas
         foreach (KillNotifyManager obj in notifyList)
         {
             obj.gameObject.SetActive(false);
+            obj.killer.color = Color.white;
+            obj.victim.color = Color.white;
         }
     }    
 

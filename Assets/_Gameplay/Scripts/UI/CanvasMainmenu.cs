@@ -13,7 +13,6 @@ public class CanvasMainmenu : UICanvas
     private void Start()
     {
         UpdateGoldText(DataManager.ins.playerData.gold);
-        Debug.Log(DataManager.ins.playerData.namePlayer);
         UpdateName(DataManager.ins.playerData.namePlayer);
     }
 

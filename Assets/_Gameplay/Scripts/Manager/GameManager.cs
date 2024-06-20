@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Rendering;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager ins;
+
+    [Header("Enemy Settings")]
     public float minDistance;
     public float maxDistance;
     public int totalEnemiesSpawned = 0;
@@ -14,16 +15,17 @@ public class GameManager : MonoBehaviour
     public int maxEnemiesOnScreen;
     public int counterEnemy;
 
-    private Quaternion startPlayer;
+    [Header("References")]
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Camera shopWeaponCamera;
     [SerializeField] private Camera shopFashionCamera;
     [SerializeField] private GameObject player;
 
+    private Quaternion startPlayer;
     private IState<GameManager> currentState;
+
     public List<Enemy> activeEnemys = new List<Enemy>();
     public List<TargetIndicator> activeTarget = new List<TargetIndicator>();
-
 
     private void MakeInstance()
     {
@@ -38,7 +40,7 @@ public class GameManager : MonoBehaviour
         MakeInstance();
     }
 
-    void Start()
+    private void Start()
     {
         DataManager.ins.LoadData();
         ChangeState(new MenuState());
@@ -56,39 +58,34 @@ public class GameManager : MonoBehaviour
 
     public void ChangeState(IState<GameManager> newState)
     {
-        if (currentState != null)
-        {
-            currentState.OnExit(this);
-        }
+        currentState?.OnExit(this);
 
         currentState = newState;
 
-        if (currentState != null)
-        {
-            currentState.OnEnter(this);
-        }
+        currentState?.OnEnter(this);
     }
 
     private void SpawnEnemies()
     {
-        for(int i=0; i < maxEnemiesOnScreen; i++)
+        for (int i = 0; i < maxEnemiesOnScreen; i++)
         {
             SwarmE();
-        }      
+        }
     }
+
     public void SwarmE()
     {
         Enemy enemy = PoolingEnemy.ins.SpawnFromPool(Constain.TAG_ENEMY);
         enemy.OnInit();
         activeEnemys.Add(enemy);
-        enemy.gameObject.transform.position = GetRandomPosition();
+        enemy.transform.position = GetRandomPosition();
         totalEnemiesSpawned++;
     }
 
     public void AddTargetActive(TargetIndicator T)
     {
         activeTarget.Add(T);
-    }    
+    }
 
     public void ClearTarget()
     {
@@ -98,7 +95,7 @@ public class GameManager : MonoBehaviour
             PoolingTarget.ins.EnQueueObj(Constain.TAG_TARGET, target);
         }
         activeTarget.Clear();
-    }    
+    }
 
     public void ClearEnemyActive()
     {
@@ -110,24 +107,26 @@ public class GameManager : MonoBehaviour
         activeEnemys.Clear();
     }
 
-
     public void RemoveEnemy(Enemy enemy)
     {
         counterEnemy--;
         activeEnemys.Remove(enemy);
         activeTarget.Remove(enemy.targetE);
-        if(totalEnemiesSpawned < maxEnemies) SwarmE();
+
+        if (totalEnemiesSpawned < maxEnemies)
+        {
+            SwarmE();
+        }
     }
 
     public int GetCharacterAlive() => counterEnemy + 1;
 
-    Vector3 GetRandomPosition()
+    private Vector3 GetRandomPosition()
     {
         NavMeshHit hit;
         Vector3 randomPosition = Vector3.zero;
 
         float distance = Random.Range(minDistance, maxDistance);
-
         Vector3 randomDirection = Random.insideUnitSphere;
         randomDirection.y = 0;
         randomDirection.Normalize();
@@ -155,47 +154,49 @@ public class GameManager : MonoBehaviour
         CanvasGameplay.ins.UpdateCharacterAlive();
     }
 
-    public void RestartPlayer()
+    public void RestartToAgain()
     {
         StopAllCoroutines();
         CanvasGameplay.ins.ResetTabNotify();
-        Player.ins.OnInit();
-        Player.ins.ResetName();
+        ResetPlayer();
         ClearTarget();
-        Player.ins.PlayerRotation = startPlayer;
         Time.timeScale = 1;
     }
+
+    public void ResetPlayer()
+    {
+        Player.ins.OnInit();
+        Player.ins.ResetName();
+        Player.ins.PlayerRotation = startPlayer;
+    }    
 
     public IEnumerator LoseGame()
     {
         yield return new WaitForSeconds(1.5f);
         UIManager.ins.CloseAllUI();
-        UIManager.ins.OpenUI<CanvasFail>();
-        CanvasFail.ins.SetNameKiller(Player.ins.NameOfKiller);
-        CanvasFail.ins.SetRank(Player.ins.RankPlayer);
+        UIManager.ins.OpenUI<CanvasRevival>();
+        
     }
 
     public void CheckWin()
     {
         CanvasGameplay.ins.UpdateCharacterAlive();
+
         if (counterEnemy == 0)
         {
-            if(!(GetGameState() is WinState))
+            if (!(GetGameState() is WinState))
             {
-                ChangeState(new WinState());    
-            }    
+                ChangeState(new WinState());
+            }
         }
         else
         {
-            if(Player.ins.IsDead)
+            if (Player.ins.IsDead && !(GetGameState() is LoseState))
             {
-                if(!(GetGameState() is LoseState))
-                {
-                    ChangeState(new LoseState());
-                }
-            }    
-        }    
-    }    
+                ChangeState(new LoseState());
+            }
+        }
+    }
 
     public IEnumerator WinGame()
     {
@@ -205,7 +206,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(3.5f);
         UIManager.ins.CloseAllUI();
         UIManager.ins.OpenUI<CanvasVictory>();
-        ClearEnemyActive(); 
+        ClearEnemyActive();
     }
 
     public IState<GameManager> GetGameState() => currentState;

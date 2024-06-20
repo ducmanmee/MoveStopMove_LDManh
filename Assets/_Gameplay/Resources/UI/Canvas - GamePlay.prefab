@@ -420,7 +420,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9135080993134123286
 RectTransform:
   m_ObjectHideFlags: 0
@@ -486,7 +486,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &9135080993134123287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -532,6 +532,10 @@ PrefabInstance:
     - target: {fileID: 307070623014989673, guid: acbf87d17a2cb5741a0722dfadcda34b, type: 3}
       propertyPath: m_Name
       value: TabKill
+      objectReference: {fileID: 0}
+    - target: {fileID: 307070623014989673, guid: acbf87d17a2cb5741a0722dfadcda34b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4232094092070251156, guid: acbf87d17a2cb5741a0722dfadcda34b, type: 3}
       propertyPath: m_Pivot.x
@@ -646,6 +650,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TabKill
       objectReference: {fileID: 0}
+    - target: {fileID: 307070623014989673, guid: acbf87d17a2cb5741a0722dfadcda34b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4232094092070251156, guid: acbf87d17a2cb5741a0722dfadcda34b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -758,6 +766,10 @@ PrefabInstance:
     - target: {fileID: 307070623014989673, guid: acbf87d17a2cb5741a0722dfadcda34b, type: 3}
       propertyPath: m_Name
       value: TabKill
+      objectReference: {fileID: 0}
+    - target: {fileID: 307070623014989673, guid: acbf87d17a2cb5741a0722dfadcda34b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4232094092070251156, guid: acbf87d17a2cb5741a0722dfadcda34b, type: 3}
       propertyPath: m_Pivot.x

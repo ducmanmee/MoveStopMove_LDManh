@@ -28,7 +28,7 @@ public class CanvasSetting : UICanvas
     {
         UIManager.ins.CloseAllUI();
         GameManager.ins.ClearEnemyActive();
-        GameManager.ins.RestartPlayer();
+        GameManager.ins.RestartToAgain();
         GameManager.ins.ChangeState(new MenuState());
         UIManager.ins.OpenUI<CanvasMainmenu>();
     }

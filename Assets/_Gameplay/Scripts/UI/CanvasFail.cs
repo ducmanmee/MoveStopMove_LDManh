@@ -33,7 +33,7 @@ public class CanvasFail : UICanvas
         GameManager.ins.ClearEnemyActive();
         UIManager.ins.OpenUI<CanvasMainmenu>();
         GameManager.ins.ChangeState(new MenuState());
-        GameManager.ins.RestartPlayer();
+        GameManager.ins.RestartToAgain();
     }
 
     public void SetNameKiller(string killer)
