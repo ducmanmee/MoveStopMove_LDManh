@@ -66,8 +66,7 @@ public class Enemy : Character
     public IEnumerator OnDead()
     {
         ChangeState(new DeadState());
-        yield return new WaitForSeconds(Constain.TIMER_DEAD);
-        GameManager.ins.CheckWin();
+        yield return new WaitForSeconds(Constain.TIMER_DEAD);   
         PoolingEnemy.ins.EnQueueObj(Constain.TAG_ENEMY, this);
         PoolingTarget.ins.EnQueueObj(Constain.TAG_TARGET, targetE);
     }

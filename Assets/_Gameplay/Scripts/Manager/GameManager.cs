@@ -157,6 +157,7 @@ public class GameManager : MonoBehaviour
 
     public void RestartPlayer()
     {
+        StopAllCoroutines();
         Player.ins.OnInit();
         Player.ins.ResetName();
         ClearTarget();
@@ -167,16 +168,10 @@ public class GameManager : MonoBehaviour
     public IEnumerator LoseGame()
     {
         yield return new WaitForSeconds(1.5f);
-        if(!(currentState is MenuState) && Player.ins.IsDead)
-        {
-            UIManager.ins.CloseAllUI();
-            if(!(GetGameState() is WinState))
-            {
-                UIManager.ins.OpenUI<CanvasFail>();
-                CanvasFail.ins.SetNameKiller(Player.ins.NameOfKiller);
-                CanvasFail.ins.SetRank(Player.ins.RankPlayer);
-            }    
-        }
+        UIManager.ins.CloseAllUI();
+        UIManager.ins.OpenUI<CanvasFail>();
+        CanvasFail.ins.SetNameKiller(Player.ins.NameOfKiller);
+        CanvasFail.ins.SetRank(Player.ins.RankPlayer);
     }
 
     public void CheckWin()
@@ -184,11 +179,21 @@ public class GameManager : MonoBehaviour
         CanvasGameplay.ins.UpdateCharacterAlive();
         if (counterEnemy == 0)
         {
-            if(!Player.ins.IsDead)
+            if(!(GetGameState() is WinState))
             {
-                ChangeState(new WinState());
-            }      
+                ChangeState(new WinState());    
+            }    
         }
+        else
+        {
+            if(Player.ins.IsDead)
+            {
+                if(!(GetGameState() is LoseState))
+                {
+                    ChangeState(new LoseState());
+                }
+            }    
+        }    
     }    
 
     public IEnumerator WinGame()
@@ -197,12 +202,9 @@ public class GameManager : MonoBehaviour
         Player.ins.PlayerRotation = startPlayer;
         Player.ins.ChangeState(new PWinState());
         yield return new WaitForSeconds(3.5f);
-        if (!(GetGameState() is MenuState) && !(GetGameState() is LoseState))
-        {
-            UIManager.ins.CloseAllUI();
-            UIManager.ins.OpenUI<CanvasVictory>();
-            ClearEnemyActive();
-        }    
+        UIManager.ins.CloseAllUI();
+        UIManager.ins.OpenUI<CanvasVictory>();
+        ClearEnemyActive(); 
     }
 
     public IState<GameManager> GetGameState() => currentState;
@@ -219,5 +221,4 @@ public class GameManager : MonoBehaviour
         mainCamera.enabled = !hide;
         shopFashionCamera.enabled = hide;
     }
-
 }

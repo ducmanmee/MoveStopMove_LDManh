@@ -56,6 +56,7 @@ public class WeaponController : MonoBehaviour
         owner.UpKill();
         C.IsDead = true;
         C.Dead();
+        GameManager.ins.CheckWin();
         if (C is Player)
         {
             Player.ins.NameOfKiller = owner.NameOfCharacter;

@@ -7,6 +7,7 @@ public class CanvasGameplay : UICanvas
 {
     public static CanvasGameplay ins;
     [SerializeField] Text coinText;
+    [SerializeField] List<KillNotifyManager> notifyList; 
 
     private void MakeInstance()
     {

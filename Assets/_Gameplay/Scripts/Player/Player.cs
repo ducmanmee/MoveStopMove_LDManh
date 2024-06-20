@@ -149,7 +149,6 @@ public class Player : Character
     {
         base.Dead();
         canAttack = false;
-        GameManager.ins.ChangeState(new LoseState());
         ChangeState(new PDeadState());
         return;
     }

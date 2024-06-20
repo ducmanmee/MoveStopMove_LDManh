@@ -14,6 +14,7 @@ public class Constain
     public static string ANIM_DEAD = "dead";
     public static string TAG_ENEMY = "Enemy";
     public static string TAG_TARGET = "target";
+    public static string TAG_TABKILL = "tabkill";
     public static string TAG_PLAYER = "Player";
     public static string TAG_ATTACKRANGE = "attackRange";
     public static string TAG_WEAPON = "weapon";
