@@ -31,9 +31,7 @@ public class Player : Character
     {
         MakeInstance();
         startTransformPlayer = transform;
-        startAttackPoint = attackPoint;
-        
-        
+        startAttackPoint = attackPoint; 
     }
     private void Update()
     {
@@ -49,6 +47,7 @@ public class Player : Character
     public override void OnInit()
     {  
         base.OnInit();
+        NameOfCharacter = DataManager.ins.playerData.namePlayer;
         isWin = false;
         CountScale = 0;
         weaponBoosted = false;
@@ -57,6 +56,10 @@ public class Player : Character
         transform.position = Constain.START_POINT;
         SetupSkin();
         ChangeState(new PIdleState());
+        if(NameOfCharacter == null)
+        {
+            NameOfCharacter = "You";
+        }    
     }
 
     public void SetupSkin()
@@ -151,6 +154,11 @@ public class Player : Character
         return;
     }
 
+    public void ResetName()
+    {
+        PoolingTarget.ins.EnQueueObj(Constain.TAG_TARGET, targetE);
+    }    
+
     public bool IsWin
     {
         get { return isWin; }
@@ -162,6 +170,12 @@ public class Player : Character
         get { return rankPlayer; }
         set { rankPlayer = value; }
     }
+
+    public void SetnameInput(string s)
+    {
+        NameOfCharacter = s;
+        DataManager.ins.playerData.namePlayer = NameOfCharacter;
+    }    
 
     public Vector3 PositionPlayer() => transform.position;    
 }

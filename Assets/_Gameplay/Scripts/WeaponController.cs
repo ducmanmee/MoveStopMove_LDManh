@@ -53,6 +53,7 @@ public class WeaponController : MonoBehaviour
     public void WeaponToKillCharacter(Character C)
     {
         if(C.IsDead) return;
+        owner.UpKill();
         C.IsDead = true;
         C.Dead();
         if (C is Player)

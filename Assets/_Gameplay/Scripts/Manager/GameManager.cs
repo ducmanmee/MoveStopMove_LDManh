@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     private IState<GameManager> currentState;
     public List<Enemy> activeEnemys = new List<Enemy>();
+    public List<TargetIndicator> activeTarget = new List<TargetIndicator>();
 
 
     private void MakeInstance()
@@ -79,14 +80,25 @@ public class GameManager : MonoBehaviour
     {
         Enemy enemy = PoolingEnemy.ins.SpawnFromPool(Constain.TAG_ENEMY);
         enemy.OnInit();
-        TargetIndicator target = PoolingTarget.ins.SpawnFromPool(Constain.TAG_TARGET);
-        target.SetName(enemy.NameOfCharacter);
-        target.SetOwner(enemy);
-        enemy.SetTargetIndicator(target);
         activeEnemys.Add(enemy);
         enemy.gameObject.transform.position = GetRandomPosition();
         totalEnemiesSpawned++;
     }
+
+    public void AddTargetActive(TargetIndicator T)
+    {
+        activeTarget.Add(T);
+    }    
+
+    public void ClearTarget()
+    {
+        foreach (TargetIndicator target in activeTarget)
+        {
+            if (!target.gameObject.activeSelf) continue;
+            PoolingTarget.ins.EnQueueObj(Constain.TAG_TARGET, target);
+        }
+        activeTarget.Clear();
+    }    
 
     public void ClearEnemyActive()
     {
@@ -103,6 +115,7 @@ public class GameManager : MonoBehaviour
     {
         counterEnemy--;
         activeEnemys.Remove(enemy);
+        activeTarget.Remove(enemy.targetE);
         if(totalEnemiesSpawned < maxEnemies) SwarmE();
     }
 
@@ -131,19 +144,22 @@ public class GameManager : MonoBehaviour
 
     public void PlayGame()
     {
-        GameManager.ins.ChangeState(new PlayState());
+        ChangeState(new PlayState());
         Player.ins.OnInit();
+        Player.ins.ActiveName();
         counterEnemy = maxEnemies;
         UIManager.ins.CloseAllUI();
         UIManager.ins.OpenUI<CanvasGameplay>();
         Time.timeScale = 1;
-        GameManager.ins.OnInit();
+        OnInit();
         CanvasGameplay.ins.UpdateCharacterAlive();
     }
 
     public void RestartPlayer()
     {
         Player.ins.OnInit();
+        Player.ins.ResetName();
+        ClearTarget();
         Player.ins.PlayerRotation = startPlayer;
         Time.timeScale = 1;
     }
@@ -154,9 +170,12 @@ public class GameManager : MonoBehaviour
         if(!(currentState is MenuState) && Player.ins.IsDead)
         {
             UIManager.ins.CloseAllUI();
-            UIManager.ins.OpenUI<CanvasFail>();
-            CanvasFail.ins.SetNameKiller(Player.ins.NameOfKiller);
-            CanvasFail.ins.SetRank(Player.ins.RankPlayer);
+            if(!(GetGameState() is WinState))
+            {
+                UIManager.ins.OpenUI<CanvasFail>();
+                CanvasFail.ins.SetNameKiller(Player.ins.NameOfKiller);
+                CanvasFail.ins.SetRank(Player.ins.RankPlayer);
+            }    
         }
     }
 
@@ -165,7 +184,10 @@ public class GameManager : MonoBehaviour
         CanvasGameplay.ins.UpdateCharacterAlive();
         if (counterEnemy == 0)
         {
-            StartCoroutine(WinGame());
+            if(!Player.ins.IsDead)
+            {
+                ChangeState(new WinState());
+            }      
         }
     }    
 
@@ -175,11 +197,11 @@ public class GameManager : MonoBehaviour
         Player.ins.PlayerRotation = startPlayer;
         Player.ins.ChangeState(new PWinState());
         yield return new WaitForSeconds(3.5f);
-        if (!(GameManager.ins.GetGameState() is MenuState))
+        if (!(GetGameState() is MenuState) && !(GetGameState() is LoseState))
         {
             UIManager.ins.CloseAllUI();
             UIManager.ins.OpenUI<CanvasVictory>();
-            GameManager.ins.ClearEnemyActive();
+            ClearEnemyActive();
         }    
     }
 

@@ -7,6 +7,8 @@ public class AudioManager : Singleton<AudioManager>
     private Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
     [SerializeField] private List<AudioClip> audioClipList;
     [SerializeField] private AudioSource audioSource;
+    private bool isMute;
+
     void Start()
     {
         LoadAudioClip();
@@ -25,7 +27,6 @@ public class AudioManager : Singleton<AudioManager>
         if (audioClips.ContainsKey(soundName))
         {
             audioSource.PlayOneShot(audioClips[soundName]);
-            Debug.Log(audioClips[soundName]);
         }
     }
 
@@ -38,4 +39,17 @@ public class AudioManager : Singleton<AudioManager>
     {
         audioSource.volume = volume;
     }
+
+    public void Mute()
+    {
+        isMute = !isMute;
+        if(isMute)
+        {
+            SetVolume(0f);
+        }
+        else
+        {
+            SetVolume(1f);
+        }
+    }    
 }

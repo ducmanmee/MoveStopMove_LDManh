@@ -59,10 +59,14 @@ public class Character : MonoBehaviour
     private string nameCharacter;
     private string nameKiller;
 
+    public TargetIndicator targetE;
+    public int counterKillNumber;
+
     public virtual void OnInit()
     {
         isDead = false;
         startAttackPoint = attackPoint;
+        ResetCounterKill();
     }
 
     public virtual void OnDespawn()
@@ -396,10 +400,26 @@ public class Character : MonoBehaviour
         set { nameKiller = value; }
     }
 
+    public void ActiveName()
+    {
+        targetE = PoolingTarget.ins.SpawnFromPool(Constain.TAG_TARGET);
+        GameManager.ins.AddTargetActive(targetE);
+        targetE.SetName(NameOfCharacter);
+        targetE.SetOwner(this);
+    }
+
     public virtual void SetAim(bool active)
     {
         
     }
+
+    public void UpKill()
+    {
+        counterKillNumber++;
+        targetE.SetCounterKill(counterKillNumber);
+    }
+
+    public void ResetCounterKill() => counterKillNumber = 0;
 
     public Rigidbody GetRigibody() => characterBody;
 

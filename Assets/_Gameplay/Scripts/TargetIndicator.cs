@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,8 @@ public class TargetIndicator : Singleton<TargetIndicator>
     [SerializeField] GameObject waypoint;
     [SerializeField] Character ownerTarget;
     [SerializeField] RectTransform rect;
+    [SerializeField] GameObject tabName;
+    [SerializeField] TMP_Text counterKill;
 
     Vector3 viewPoint;
     Vector3 screenHalf = new Vector2(Screen.width, Screen.height) / 2;
@@ -27,7 +30,7 @@ public class TargetIndicator : Singleton<TargetIndicator>
     private void LateUpdate()
     {
         viewPoint = Camera.main.WorldToViewportPoint(ownerTarget.transform.position);
-        nameCharacter.enabled = IsInView();
+        tabName.SetActive(IsInView());
         waypoint.SetActive(!IsInView());
 
         viewPoint.x = Mathf.Clamp(viewPoint.x, viewPointX.x, viewPointX.y);
@@ -42,11 +45,15 @@ public class TargetIndicator : Singleton<TargetIndicator>
     public void SetName(string name)
     {
         nameCharacter.text = name;
-        Debug.Log(name);
     } 
     
     public void SetOwner(Character C)
     {
         ownerTarget = C;
-    }    
+    }
+
+    public void SetCounterKill(int kill)
+    {
+        counterKill.text = kill.ToString();
+    }
 }

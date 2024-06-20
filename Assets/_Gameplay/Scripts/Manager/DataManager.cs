@@ -59,6 +59,7 @@ public class PlayerData
 
 
     [Header("--------- Game Params ---------")]
+    public string namePlayer = "You";
     public int gold = 10000;
     public int level = 0;
     public int idSkin = 0;

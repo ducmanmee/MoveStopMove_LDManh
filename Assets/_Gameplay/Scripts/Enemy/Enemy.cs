@@ -9,7 +9,6 @@ public class Enemy : Character
     private IState<Enemy> currentState;
     [SerializeField] private GameObject aim;
     [SerializeField] private GameObject animE;
-    [SerializeField] TargetIndicator targetE;
     private Vector3 target;
     private float scaleEnemy;
 
@@ -54,12 +53,8 @@ public class Enemy : Character
         SetPant(PantToUse);
         SetHat(HatToUse);
         SetupWeapon();
-    }
-
-    public void SetTargetIndicator(TargetIndicator T)
-    {
-        targetE = T;
-    }    
+        ActiveName();
+    }  
 
     public override void Dead()
     {

@@ -6,7 +6,7 @@ public class WinState : IState<GameManager>
 {
     public void OnEnter(GameManager t)
     {
-        
+        t.StartCoroutine(t.WinGame());
     }
 
     public void OnExecute(GameManager t)

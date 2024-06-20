@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,11 +8,19 @@ public class CanvasMainmenu : UICanvas
 {
 
     [SerializeField] Text goldText;
+    [SerializeField] TMP_InputField namePlayer;
 
     private void Start()
     {
         UpdateGoldText(DataManager.ins.playerData.gold);
+        Debug.Log(DataManager.ins.playerData.namePlayer);
+        UpdateName(DataManager.ins.playerData.namePlayer);
     }
+
+    public void UpdateName(string name)
+    {
+        namePlayer.text = name;
+    }    
 
     public void UpdateGoldText(int gold)
     {
