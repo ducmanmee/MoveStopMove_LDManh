@@ -7,7 +7,8 @@ public class CanvasGameplay : UICanvas
 {
     public static CanvasGameplay ins;
     [SerializeField] Text coinText;
-    [SerializeField] List<KillNotifyManager> notifyList; 
+    [SerializeField] List<KillNotifyManager> notifyList;
+    int notifyIndex;
 
     private void MakeInstance()
     {
@@ -22,6 +23,47 @@ public class CanvasGameplay : UICanvas
         MakeInstance();
         base.Setup();
     }
+
+    public void ShowNotifyKill(string killer, string victim)
+    {
+        if(CheckActiveNotify())
+        {
+            for (int i = notifyList.Count - 1; i > 0; i--)
+            {
+                notifyList[i].SetNotifyKill(
+                    notifyList[i - 1].killer.text,
+                    notifyList[i - 1].victim.text
+                );
+            }
+
+            notifyList[0].SetNotifyKill(killer, victim);
+            return;
+        }
+
+        notifyList[notifyIndex].SetNotifyKill(killer, victim);
+        notifyIndex = (notifyIndex + 1) % notifyList.Count;
+    }
+
+    public bool CheckActiveNotify()
+    {
+        foreach (KillNotifyManager obj in notifyList)
+        {
+            if (!obj.gameObject.activeSelf)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void ResetTabNotify()
+    {
+        notifyIndex = 0;
+        foreach (KillNotifyManager obj in notifyList)
+        {
+            obj.gameObject.SetActive(false);
+        }
+    }    
 
 
     public void UpdateCharacterAlive()

@@ -6,14 +6,30 @@ using UnityEngine.UI;
 
 public class KillNotifyManager : Singleton<KillNotifyManager>
 {
-    [SerializeField] Text killer;
-    [SerializeField] Text victim;
+    public Text killer;
+    public Text victim;
     bool isActive;
 
     public void SetNotifyKill(string name1, string name2)
     {
+        this.gameObject.SetActive(true);
+        isActive = true;
         killer.text = name1;
         victim.text = name2;
+        if (name1 == Player.ins.NameOfCharacter)
+        {
+            killer.color = Color.green;
+        }
+        else if(name2 == Player.ins.NameOfCharacter)
+        {
+            victim.color = Color.red;
+        }
+        else
+        {
+            killer.color = Color.white;
+            victim.color = Color.white;
+        }    
+        
     }
 
     public bool IsActive

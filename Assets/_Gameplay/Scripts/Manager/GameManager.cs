@@ -158,6 +158,7 @@ public class GameManager : MonoBehaviour
     public void RestartPlayer()
     {
         StopAllCoroutines();
+        CanvasGameplay.ins.ResetTabNotify();
         Player.ins.OnInit();
         Player.ins.ResetName();
         ClearTarget();
