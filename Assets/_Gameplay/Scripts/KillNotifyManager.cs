@@ -13,9 +13,8 @@ public class KillNotifyManager : Singleton<KillNotifyManager>
     public void SetNotifyKill(string name1, string name2)
     {
         this.gameObject.SetActive(true);
-        isActive = true;
-        killer.text = name1;
-        victim.text = name2;
+        killer.color = Color.white;
+        victim.color = Color.white;
         if (name1 == Player.ins.NameOfCharacter)
         {
             killer.color = Color.green;
@@ -23,12 +22,10 @@ public class KillNotifyManager : Singleton<KillNotifyManager>
         else if(name2 == Player.ins.NameOfCharacter)
         {
             victim.color = Color.red;
-        }
-        else
-        {
-            killer.color = Color.white;
-            victim.color = Color.white;
-        }    
+        } 
+        isActive = true;
+        killer.text = name1;
+        victim.text = name2;
         
     }
 

@@ -29,8 +29,9 @@ public class CanvasShopFashion : UICanvas
         Close(0);
         GameManager.ins.HideShopFashionCamera(false);
         Player.ins.OnInit();
-        UIManager.ins.OpenUI<CanvasMainmenu>();
-        UIManager.ins.OpenUI<CanvasMainmenu>().UpdateGoldText(DataManager.ins.playerData.gold);
+        CanvasMainmenu canvasMainmenu = UIManager.ins.OpenUI<CanvasMainmenu>();
+        canvasMainmenu.MoveAgainBtn();
+        canvasMainmenu.UpdateGoldText(DataManager.ins.playerData.gold);
     }
 
     public void SetStateShop(int index)

@@ -10,8 +10,9 @@ public class CanvasShopWeapon : UICanvas
         GameManager.ins.HideShopWeaponCamera(false);
         GameManager.ins.ChangeState(new MenuState());
         WeaponDisplay.ins.ResetWeaponInShop();
-        UIManager.ins.OpenUI<CanvasMainmenu>();
-        UIManager.ins.OpenUI<CanvasMainmenu>().UpdateGoldText(DataManager.ins.playerData.gold);
+        CanvasMainmenu canvasMainmenu = UIManager.ins.OpenUI<CanvasMainmenu>();
+        canvasMainmenu.MoveAgainBtn();
+        canvasMainmenu.UpdateGoldText(DataManager.ins.playerData.gold);
     }    
 
 }

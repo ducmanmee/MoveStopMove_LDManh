@@ -1,3 +1,4 @@
+using DG.Tweening.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,10 +6,24 @@ using UnityEngine.UI;
 
 public class CountdownTimer : MonoBehaviour
 {
+    public static CountdownTimer ins;
     public int countdownTimer;
     public Text countdownText;
 
-    private void Start()
+    private void MakeInstance()
+    {
+        if(ins  == null)
+        {
+            ins = this;
+        }    
+    }
+
+    private void Awake()
+    {
+        MakeInstance();
+    }
+
+    private void OnEnable()
     {
         StartCoroutine(Countdown());
     }
@@ -23,4 +38,10 @@ public class CountdownTimer : MonoBehaviour
         }
         CanvasRevival.ins.DontRevive();
     }    
+
+    public void ResetCountdown()
+    { 
+        countdownTimer = 5;
+        StartCoroutine(Countdown());
+    }
 }

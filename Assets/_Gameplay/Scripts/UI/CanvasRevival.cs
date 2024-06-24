@@ -21,19 +21,22 @@ public class CanvasRevival : UICanvas
 
     private void Start()
     {
-        Debug.Log(GameManager.ins.GetGameState());
+        
     }
     public void Revive()
     {
         Close(0);
+        CountdownTimer.ins.ResetCountdown();
         GameManager.ins.ChangeState(new PlayState());
         UIManager.ins.OpenUI<CanvasGameplay>();
         GameManager.ins.ResetPlayer();
+        Player.ins.ActiveName();
     }  
     
     public void DontRevive()
     {
         Close(0);
+        CountdownTimer.ins.ResetCountdown();
         UIManager.ins.OpenUI<CanvasFail>();
         CanvasFail.ins.SetNameKiller(Player.ins.NameOfKiller);
         CanvasFail.ins.SetRank(Player.ins.RankPlayer);

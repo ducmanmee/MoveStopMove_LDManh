@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     public List<Enemy> activeEnemys = new List<Enemy>();
     public List<TargetIndicator> activeTarget = new List<TargetIndicator>();
 
+    private bool isRevive;
+
     private void MakeInstance()
     {
         if (ins == null)
@@ -158,6 +160,7 @@ public class GameManager : MonoBehaviour
     {
         StopAllCoroutines();
         CanvasGameplay.ins.ResetTabNotify();
+        isRevive = false;
         ResetPlayer();
         ClearTarget();
         Time.timeScale = 1;
@@ -174,7 +177,17 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
         UIManager.ins.CloseAllUI();
-        UIManager.ins.OpenUI<CanvasRevival>();
+        if(!isRevive)
+        {
+            isRevive = true;
+            UIManager.ins.OpenUI<CanvasRevival>();
+        }
+        else
+        {
+            UIManager.ins.OpenUI<CanvasFail>();
+            CanvasFail.ins.SetNameKiller(Player.ins.NameOfKiller);
+            CanvasFail.ins.SetRank(Player.ins.RankPlayer);
+        }
         
     }
 
