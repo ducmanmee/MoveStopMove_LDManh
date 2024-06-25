@@ -8,6 +8,7 @@ public class CanvasGameplay : UICanvas
     public static CanvasGameplay ins;
     [SerializeField] Text coinText;
     [SerializeField] List<KillNotifyManager> notifyList;
+    [SerializeField] GameObject hand;
     int notifyIndex;
 
     private void MakeInstance()
@@ -76,4 +77,9 @@ public class CanvasGameplay : UICanvas
     {
         UIManager.ins.OpenUI<CanvasSetting>().SetState(this);
     }
+
+    public void HandBtn(bool isActive)
+    {
+        hand.SetActive(isActive);
+    }    
 }

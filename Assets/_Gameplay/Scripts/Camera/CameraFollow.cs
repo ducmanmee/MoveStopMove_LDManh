@@ -43,7 +43,7 @@ public class CameraFollow : MonoBehaviour
         }   
         if(isScale)
         {
-            offset += new Vector3(0, .5f, .5f);
+            offset += new Vector3(0, .7f, .7f);
             isScale = false;
 
         }

@@ -48,7 +48,7 @@ public class Enemy : Character
         WeaponToUse = Random.Range(0, 11);
         PantToUse = Random.Range(0, 8);
         HatToUse = Random.Range(0, 9);
-        scaleEnemy = Random.Range(-.5f, .5f);
+        scaleEnemy = Random.Range(0f, .5f);
         ScaleCharacter(animE.transform, scaleEnemy);
         SetPant(PantToUse);
         SetHat(HatToUse);
@@ -92,8 +92,8 @@ public class Enemy : Character
         Vector3 randomDirection;
         do
         {
-            float randomX = Random.Range(-39, 39);
-            float randomZ = Random.Range(-32, 32);
+            float randomX = Random.Range(-37, 37);
+            float randomZ = Random.Range(-30, 30);
             randomDirection = new Vector3(randomX, 0, randomZ);
         } while (Vector3.Distance(transform.position, randomDirection) > 5f);
 

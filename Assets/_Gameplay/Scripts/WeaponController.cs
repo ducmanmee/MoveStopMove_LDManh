@@ -54,7 +54,6 @@ public class WeaponController : MonoBehaviour
     {
         if(C.IsDead) return;
         owner.UpKill();
-        C.IsDead = true;
         C.Dead();
         CanvasGameplay.ins.ShowNotifyKill(owner.NameOfCharacter, C.NameOfCharacter);
         GameManager.ins.CheckWin();

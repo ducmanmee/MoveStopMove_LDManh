@@ -150,7 +150,8 @@ public class GameManager : MonoBehaviour
         Player.ins.ActiveName();
         counterEnemy = maxEnemies;
         UIManager.ins.CloseAllUI();
-        UIManager.ins.OpenUI<CanvasGameplay>();
+        CanvasGameplay canvasGameplay = UIManager.ins.OpenUI<CanvasGameplay>();
+        canvasGameplay.HandBtn(true);
         Time.timeScale = 1;
         OnInit();
         CanvasGameplay.ins.UpdateCharacterAlive();

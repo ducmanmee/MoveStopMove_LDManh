@@ -235,6 +235,7 @@ public class Character : MonoBehaviour
 
     public virtual void Dead()
     {
+        isDead = true;
         ClearCharacterInRange();
     }    
 
