@@ -4,6 +4,7 @@ using DG.Tweening;
 public class WeaponController : MonoBehaviour
 {
     public static WeaponController ins;
+    public int idWeapon;
     public float speed = 1f;
     public Transform mesh;
     Quaternion target;
@@ -18,7 +19,7 @@ public class WeaponController : MonoBehaviour
     public void OnDespawn()
     {
         distanceToDes = 0f;
-        UnBullet(1);
+        UnBullet(idWeapon);
     }
 
     private void Update()

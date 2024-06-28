@@ -48,8 +48,8 @@ public class Enemy : Character
         WeaponToUse = Random.Range(0, 11);
         PantToUse = Random.Range(0, 8);
         HatToUse = Random.Range(0, 9);
-        scaleEnemy = Random.Range(0f, .5f);
-        ScaleCharacter(animE.transform, scaleEnemy);
+        //scaleEnemy = Random.Range(0f, .5f);
+        //ScaleCharacter(animE.transform, scaleEnemy);
         SetPant(PantToUse);
         SetHat(HatToUse);
         SetupWeapon();

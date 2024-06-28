@@ -140,8 +140,14 @@ public class Character : MonoBehaviour
     }
 
     public void SetupBullet()
-    {  
+    {
         bullet = Pooling.ins.SpawnFromPool(weaponCharacterToUse.ToString());
+        bullet.idWeapon = weaponCharacterToUse;
+        if (this is Player)
+        {
+            Debug.Log(weaponCharacterToUse);
+            Debug.Log(bullet.name);
+        }    
         bullet.owner = this;
         bullet.gameObject.transform.position = attackPoint.position;
         bullet.gameObject.transform.rotation = attackPoint.rotation;
