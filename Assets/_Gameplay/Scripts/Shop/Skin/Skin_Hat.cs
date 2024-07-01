@@ -45,7 +45,7 @@ public class Skin_Hat : CanvasSkin
     public void SetStateHat()
     {
         hat = (Hat)scriptableObjects[SelectingID - 1];
-        if (DataManager.ins.playerData.status_Hat[SelectingID])
+        if (DataManager.ins.dt.status_Hat[SelectingID])
         {
             if (Player.ins.HatToUse == SelectingID)
             {
@@ -65,18 +65,18 @@ public class Skin_Hat : CanvasSkin
 
     public void Buy()
     {
-        if (DataManager.ins.playerData.status_Hat[SelectingID])
+        if (DataManager.ins.dt.status_Hat[SelectingID])
         {
             if (Player.ins.HatToUse != SelectingID)
             {
-                DataManager.ins.playerData.idHat = SelectingID;
-                Player.ins.HatToUse = DataManager.ins.playerData.idHat;
+                DataManager.ins.dt.idHat = SelectingID;
+                Player.ins.HatToUse = DataManager.ins.dt.idHat;
                 Player.ins.SetHat(Player.ins.HatToUse);
                 SetStateHat();
             }
             else
             {
-                DataManager.ins.playerData.idHat = 0;
+                DataManager.ins.dt.idHat = 0;
                 Player.ins.HatToUse = 0;
                 Player.ins.SetHat(0);
                 SetStateHat();
@@ -84,12 +84,12 @@ public class Skin_Hat : CanvasSkin
         }
         else
         {
-            if (DataManager.ins.playerData.gold > int.Parse(priceText.text))
+            if (DataManager.ins.dt.gold > int.Parse(priceText.text))
             {
                 GetCurrentShopBtn().UnLock(true);
-                DataManager.ins.playerData.gold -= int.Parse(priceText.text);
+                DataManager.ins.dt.gold -= int.Parse(priceText.text);
                 UpdateGoldText();
-                DataManager.ins.playerData.status_Hat[SelectingID] = true;
+                DataManager.ins.dt.status_Hat[SelectingID] = true;
                 SetStateHat();
             }
         }

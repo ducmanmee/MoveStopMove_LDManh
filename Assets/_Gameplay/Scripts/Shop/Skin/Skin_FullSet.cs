@@ -46,7 +46,7 @@ public class Skin_FullSet : CanvasSkin
     public void SetStateSkin()
     {
         fullset = (FullSet)scriptableObjects[SelectingID - 1];
-        if (DataManager.ins.playerData.status_SetSkin[SelectingID])
+        if (DataManager.ins.dt.status_SetSkin[SelectingID])
         {
             if (Player.ins.SetSkinToUse == SelectingID)
             {
@@ -66,18 +66,18 @@ public class Skin_FullSet : CanvasSkin
 
     public void Buy()
     {
-        if (DataManager.ins.playerData.status_SetSkin[SelectingID])
+        if (DataManager.ins.dt.status_SetSkin[SelectingID])
         {
             if (Player.ins.SetSkinToUse != SelectingID)
             {
-                DataManager.ins.playerData.idSetSkin = SelectingID;
-                Player.ins.SetSkinToUse = DataManager.ins.playerData.idSetSkin;
+                DataManager.ins.dt.idSetSkin = SelectingID;
+                Player.ins.SetSkinToUse = DataManager.ins.dt.idSetSkin;
                 Player.ins.SetSkin(Player.ins.SetSkinToUse);
                 SetStateSkin();
             }
             else
             {
-                DataManager.ins.playerData.idSetSkin = 0;
+                DataManager.ins.dt.idSetSkin = 0;
                 Player.ins.SetSkinToUse = 0;
                 Player.ins.SetSkin(0);
                 SetStateSkin();
@@ -85,12 +85,12 @@ public class Skin_FullSet : CanvasSkin
         }
         else
         {
-            if (DataManager.ins.playerData.gold > int.Parse(priceText.text))
+            if (DataManager.ins.dt.gold > int.Parse(priceText.text))
             {
                 GetCurrentShopBtn().UnLock(true);
-                DataManager.ins.playerData.gold -= int.Parse(priceText.text);
+                DataManager.ins.dt.gold -= int.Parse(priceText.text);
                 UpdateGoldText();
-                DataManager.ins.playerData.status_SetSkin[SelectingID] = true;
+                DataManager.ins.dt.status_SetSkin[SelectingID] = true;
                 SetStateSkin();
             }
         }

@@ -44,7 +44,7 @@ public class Skin_Khien : CanvasSkin
     public void SetStatekhien()
     {
         khien = (Khien)scriptableObjects[SelectingID - 1];
-        if (DataManager.ins.playerData.status_Khien[SelectingID])
+        if (DataManager.ins.dt.status_Khien[SelectingID])
         { 
             if (Player.ins.KhienToUse == SelectingID)
             {
@@ -63,18 +63,18 @@ public class Skin_Khien : CanvasSkin
 
     public void Buy()
     {
-        if (DataManager.ins.playerData.status_Khien[SelectingID])
+        if (DataManager.ins.dt.status_Khien[SelectingID])
         {
             if (Player.ins.KhienToUse != SelectingID)
             {
-                DataManager.ins.playerData.idKhien = SelectingID;
-                Player.ins.KhienToUse = DataManager.ins.playerData.idKhien;
+                DataManager.ins.dt.idKhien = SelectingID;
+                Player.ins.KhienToUse = DataManager.ins.dt.idKhien;
                 Player.ins.SetKhien(Player.ins.KhienToUse);
                 SetStatekhien();
             }
             else
             {
-                DataManager.ins.playerData.idKhien = 0;
+                DataManager.ins.dt.idKhien = 0;
                 Player.ins.KhienToUse = 0;
                 Player.ins.SetKhien(0);
                 SetStatekhien();
@@ -82,12 +82,12 @@ public class Skin_Khien : CanvasSkin
         }
         else
         {
-            if (DataManager.ins.playerData.gold > int.Parse(priceText.text))
+            if (DataManager.ins.dt.gold > int.Parse(priceText.text))
             {
                 GetCurrentShopBtn().UnLock(true);
-                DataManager.ins.playerData.gold -= int.Parse(priceText.text);
+                DataManager.ins.dt.gold -= int.Parse(priceText.text);
                 UpdateGoldText();
-                DataManager.ins.playerData.status_Khien[SelectingID] = true;
+                DataManager.ins.dt.status_Khien[SelectingID] = true;
                 SetStatekhien();
             }
         }

@@ -47,7 +47,7 @@ public class Player : Character
     public override void OnInit()
     {  
         base.OnInit();
-        NameOfCharacter = DataManager.ins.playerData.namePlayer;
+        NameOfCharacter = DataManager.ins.dt.namePlayer;
         isWin = false;
         CountScale = 0;
         weaponBoosted = false;
@@ -64,10 +64,10 @@ public class Player : Character
 
     public void SetupSkin()
     {
-        WeaponToUse = DataManager.ins.playerData.idWeapon;
-        PantToUse = DataManager.ins.playerData.idPant;
-        SetSkinToUse = DataManager.ins.playerData.idSetSkin;
-        SetHat(DataManager.ins.playerData.idHat);
+        WeaponToUse = DataManager.ins.dt.idWeapon;
+        PantToUse = DataManager.ins.dt.idPant;
+        SetSkinToUse = DataManager.ins.dt.idSetSkin;
+        SetHat(DataManager.ins.dt.idHat);
         SetPant(PantToUse);
         SetSkin(SetSkinToUse);
         SetKhien(KhienToUse);
@@ -173,7 +173,7 @@ public class Player : Character
     public void SetnameInput(string s)
     {
         NameOfCharacter = s;
-        DataManager.ins.playerData.namePlayer = NameOfCharacter;
+        DataManager.ins.dt.namePlayer = NameOfCharacter;
     }    
 
     public Vector3 PositionPlayer() => transform.position;    

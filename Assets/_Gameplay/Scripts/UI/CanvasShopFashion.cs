@@ -31,7 +31,7 @@ public class CanvasShopFashion : UICanvas
         Player.ins.OnInit();
         CanvasMainmenu canvasMainmenu = UIManager.ins.OpenUI<CanvasMainmenu>();
         canvasMainmenu.MoveAgainBtn();
-        canvasMainmenu.UpdateGoldText(DataManager.ins.playerData.gold);
+        canvasMainmenu.UpdateGoldText(DataManager.ins.dt.gold);
     }
 
     public void SetStateShop(int index)

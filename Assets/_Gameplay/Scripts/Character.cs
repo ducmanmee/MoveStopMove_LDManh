@@ -379,6 +379,7 @@ public class Character : MonoBehaviour
     {
         if(countScale == 2)
         {
+            VibrationManager.ins.MediumButton();
             ScaleCharacter(skinCharacterList[SetSkinToUse].transform, .1f);
             countScale = 0;
             CameraFollow.ins.IsScale = true;

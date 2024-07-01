@@ -12,11 +12,6 @@ public class Enemy : Character
     private Vector3 target;
     private float scaleEnemy;
 
-    private void Start()
-    {
-        
-    }
-
     void Update()
     {
         if (currentState != null)

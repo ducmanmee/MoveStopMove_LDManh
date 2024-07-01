@@ -31,8 +31,8 @@ public class CanvasMainmenu : UICanvas
         {
             listRightStartPosX.Add(rightBtnMove[i].transform.localPosition.x);
         }
-        UpdateGoldText(DataManager.ins.playerData.gold);
-        UpdateName(DataManager.ins.playerData.namePlayer);
+        UpdateGoldText(DataManager.ins.dt.gold);
+        UpdateName(DataManager.ins.dt.namePlayer);
     }
 
     public void UpdateName(string name)

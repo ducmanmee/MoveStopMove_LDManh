@@ -49,16 +49,16 @@ public class CanvasSkin : Singleton<CanvasSkin>
         switch (currentShop)
         {
             case 0:
-                btn_shop[index].UnLock(DataManager.ins.playerData.status_Pant[index + 1]);
+                btn_shop[index].UnLock(DataManager.ins.dt.status_Pant[index + 1]);
                 break;
             case 1:
-                btn_shop[index].UnLock(DataManager.ins.playerData.status_Hat[index + 1]);
+                btn_shop[index].UnLock(DataManager.ins.dt.status_Hat[index + 1]);
                 break;
             case 2:
-                btn_shop[index].UnLock(DataManager.ins.playerData.status_Khien[index + 1]);
+                btn_shop[index].UnLock(DataManager.ins.dt.status_Khien[index + 1]);
                 break;
             default:
-                btn_shop[index].UnLock(DataManager.ins.playerData.status_SetSkin[index + 1]);
+                btn_shop[index].UnLock(DataManager.ins.dt.status_SetSkin[index + 1]);
                 break;
         }
     }
@@ -91,7 +91,7 @@ public class CanvasSkin : Singleton<CanvasSkin>
 
     public void UpdateGoldText()
     {
-        goldText.text = DataManager.ins.playerData.gold.ToString();
+        goldText.text = DataManager.ins.dt.gold.ToString();
     }
 
     public void SetIcon(Image icon, Texture2D iconTexture)

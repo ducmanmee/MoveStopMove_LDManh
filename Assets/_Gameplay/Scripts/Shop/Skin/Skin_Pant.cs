@@ -44,7 +44,7 @@ public class Skin_Pant : CanvasSkin
     public void SetStatePant()
     {
         pant = (Pant)scriptableObjects[SelectingID - 1];
-        if (DataManager.ins.playerData.status_Pant[SelectingID])
+        if (DataManager.ins.dt.status_Pant[SelectingID])
         {
             if (Player.ins.PantToUse == SelectingID)
             {
@@ -64,18 +64,18 @@ public class Skin_Pant : CanvasSkin
 
     public void Buy()
     {
-        if (DataManager.ins.playerData.status_Pant[SelectingID])
+        if (DataManager.ins.dt.status_Pant[SelectingID])
         {
             if (Player.ins.PantToUse != SelectingID)
             {
-                DataManager.ins.playerData.idPant = SelectingID;
-                Player.ins.PantToUse = DataManager.ins.playerData.idPant;
+                DataManager.ins.dt.idPant = SelectingID;
+                Player.ins.PantToUse = DataManager.ins.dt.idPant;
                 Player.ins.SetPant(Player.ins.PantToUse);
                 SetStatePant();
             }
             else
             {
-                DataManager.ins.playerData.idPant = 0;
+                DataManager.ins.dt.idPant = 0;
                 Player.ins.PantToUse = 0;
                 Player.ins.SetPant(0);
                 SetStatePant();
@@ -84,12 +84,12 @@ public class Skin_Pant : CanvasSkin
         else
         {
 
-            if (DataManager.ins.playerData.gold > int.Parse(priceText.text))
+            if (DataManager.ins.dt.gold > int.Parse(priceText.text))
             {
                 GetCurrentShopBtn().UnLock(true);
-                DataManager.ins.playerData.gold -= int.Parse(priceText.text);
+                DataManager.ins.dt.gold -= int.Parse(priceText.text);
                 UpdateGoldText();
-                DataManager.ins.playerData.status_Pant[SelectingID] = true;
+                DataManager.ins.dt.status_Pant[SelectingID] = true;
                 SetStatePant();
             }
         }

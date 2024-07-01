@@ -13,7 +13,7 @@ public class WeaponShop : Singleton<WeaponShop>
     {
         defaultIndex = 0; 
         currentIndex = defaultIndex;
-        goldText.text = DataManager.ins.playerData.gold.ToString(); 
+        goldText.text = DataManager.ins.dt.gold.ToString(); 
         weaponDisplay.DisplayWeapon((Weapon)scriptableObjectsWeapon[currentIndex], currentIndex);
     }
 
@@ -39,8 +39,8 @@ public class WeaponShop : Singleton<WeaponShop>
 
     public void SetWeapon()
     {
-        DataManager.ins.playerData.idWeapon = currentIndex;
-        Player.ins.WeaponToUse = DataManager.ins.playerData.idWeapon;
+        DataManager.ins.dt.idWeapon = currentIndex;
+        Player.ins.WeaponToUse = DataManager.ins.dt.idWeapon;
         Player.ins.SetupWeapon();
     }  
 
@@ -56,13 +56,13 @@ public class WeaponShop : Singleton<WeaponShop>
     public void BuyWeapon()
     {
         Weapon weaponToBuy = scriptableObjectsWeapon[currentIndex] as Weapon;
-        if (!DataManager.ins.playerData.status_Weapon[currentIndex])
+        if (!DataManager.ins.dt.status_Weapon[currentIndex])
         {
-            if(DataManager.ins.playerData.gold > weaponToBuy.priceWeapon)
+            if(DataManager.ins.dt.gold > weaponToBuy.priceWeapon)
             {
-                DataManager.ins.playerData.gold -= weaponToBuy.priceWeapon;
-                goldText.text = DataManager.ins.playerData.gold.ToString();
-                DataManager.ins.playerData.status_Weapon[currentIndex] = true;
+                DataManager.ins.dt.gold -= weaponToBuy.priceWeapon;
+                goldText.text = DataManager.ins.dt.gold.ToString();
+                DataManager.ins.dt.status_Weapon[currentIndex] = true;
                 weaponDisplay.SetStateDisplay(weaponToBuy, currentIndex);
             }
         }  

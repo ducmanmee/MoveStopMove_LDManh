@@ -11,11 +11,6 @@ public class WeaponController : MonoBehaviour
     private float distanceToDes = 0f;
     public Character owner;
 
-    void Start()
-    {
-
-    }
-
     public void OnDespawn()
     {
         distanceToDes = 0f;
@@ -66,6 +61,7 @@ public class WeaponController : MonoBehaviour
         if (owner is Player)
         {
             owner.CountScaleCharacter();
+            VibrationManager.ins.MediumButton();
         }
         OnDespawn();
     }   

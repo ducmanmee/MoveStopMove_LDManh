@@ -44,7 +44,7 @@ public class WeaponDisplay : Singleton<WeaponDisplay>
 
     public void SetStateDisplay(Weapon weapon, int index)
     {
-        if (DataManager.ins.playerData.status_Weapon[index])
+        if (DataManager.ins.dt.status_Weapon[index])
         {
             lockWeapon.enabled = false;
             if (Player.ins.WeaponToUse == index)
