@@ -6,17 +6,11 @@ public class VolumeBtn : MonoBehaviour
 {
     public GameObject volumeBtn;
     public GameObject noVolumeBtn;
-    private bool isVolume;
-
-    private void Start()
-    {
-        isVolume = true;
-    }
 
     public void StatusBtn()
     {
-        isVolume = !isVolume;
-        HideBtn(isVolume);
+        DataManager.ins.dt.isSound = !DataManager.ins.dt.isSound;
+        HideBtn(DataManager.ins.dt.isSound);
     }
 
     public void HideBtn(bool status)

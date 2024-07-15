@@ -6,17 +6,11 @@ public class VibrateBtn : MonoBehaviour
 {
     public GameObject vibrateBtn;
     public GameObject noVibrateBtn;
-    private bool isVibrate;
-
-    private void Start()
-    {
-        isVibrate = true;
-    }
 
     public void StatusBtn()
     {
-        isVibrate = !isVibrate;
-        HideBtn(isVibrate);
+        DataManager.ins.dt.isVibrate = !DataManager.ins.dt.isVibrate;
+        HideBtn(DataManager.ins.dt.isVibrate);
     }   
     
     public void HideBtn(bool status)
